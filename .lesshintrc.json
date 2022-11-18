@@ -1,0 +1,10 @@
+{
+    "fileExtensions": [".less", ".css"],
+
+    "excludedFiles": [],
+
+    "spaceAfterPropertyColon": {
+        "enabled": true,
+        "style": "one_space"
+    }
+}
