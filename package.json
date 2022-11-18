@@ -4,10 +4,24 @@
   "description": "Tool zur Veranstaltungsplanung, Verwaltung von Gaestelisten und Sitzplanung",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "clean": "npm run clean:dist && rm -rf ./node_modules",
-    "eslint": "eslint --init",
-    "test": "exit 1; mocha"
+    "#Allgemeine_Befehle":"echo 'comment'; exit",
+      "start": "node index.js",
+      "clean": "npm run clean:dist && rm -rf ./node_modules",
+      "lint": "semistandard --fix Main.js",
+      "debug": "npm run combinejs && npm run compileless",
+      "build": "npm run debug && npm run minjs && npm run minless",
+      "test": "exit 1; mocha",
+    "#weitere_zusammengesetzte_Befehle":"echo 'comment'; exit",
+      "check": "npm run checksemi && npm run checklint && npm run checkless",
+      "minall": "echo 'run \"debug\" first' && sleep 3 &&npm run minjs && npm run minless",
+    "#atomare_Befehle":"echo 'comment'; exit",
+      "checkless": "lesshint client/src/styles",
+      "compileless": "lessc webdev22/client/src/styles/custom.less webdev22/client/dist/styles/custom.css",
+      "minless": "lessc --clean-css webdev22/client/src/styles/custom.less webdev22/client/dist/styles/custom.min.css",
+      "minjs": "terser client/dist/bundle.js --compress --mangle -o client/dist/bundle.min.js",
+      "checksemi": "semistandard --fix --verbose Main.mjs | snazzy",
+      "combinejs": "esbuild client/src/js/Main.mjs --log-level=warning --bundle --outfile=client/dist/bundle.js",
+      "checklint": "eslint client/src/js/** server/**"
   },
   "dependencies": {
     "express": "^4.18.2"
@@ -25,7 +39,9 @@
   },
   "directories": {
     "doc": "doc",
-    "lib": "lib"
+    "lib": "lib",
+    "client": "client",
+    "server": "server"
   },
   "repository": {
     "type": "git",
