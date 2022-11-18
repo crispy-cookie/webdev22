@@ -1,0 +1,26 @@
+{
+  "name": "webdev",
+  "version": "0.1.1",
+  "description": "Tool zur Veranstaltungsplanung, Verwaltung von Gaestelisten und Sitzplanung",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "clean": "npm run clean:dist && rm -rf ./node_modules",
+    "test": "exit 1; mocha"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "less": "^4.1.3"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.fsi.hochschule-trier.de:webdev22/webdev22.git"
+  },
+  "license": "UNLICENSED",
+  "author": "buchmanc, mxkl4248"
+}
