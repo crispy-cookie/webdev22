@@ -18,14 +18,19 @@
 image: node:latest
 
 stages:          # List of stages for jobs, and their order of execution
-#  - checkenv
+  - jslint
   - javascript
   - cssless
 
-#checkenv:
-#  stage: checkenv
-#  script:
-#    - echo "PATH='${PATH}'" && export PATH="bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/:$PATH" && echo "echo "New path is" && echo "PATH='${PATH}'"
+## Falls ein Befehl im Script fehlschlaegt, wird ein Fehler geworfen
+## siehe http://redsymbol.net/articles/unofficial-bash-strict-mode/
+before_script:
+  - set -o pipefail
+
+jslint-job:
+  stage: jslint
+  script:
+    - npm run lint
 
 javascript-job:       # This job runs in the build stage, which runs first.
   stage: javascript
