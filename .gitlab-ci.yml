@@ -16,8 +16,14 @@
 ## https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 #
 stages:          # List of stages for jobs, and their order of execution
+  - checkenv
   - javascript
   - cssless
+
+checkenv:
+  stage: checkenv
+  script:
+    - echo "PATH='${PATH}'" && export PATH="bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/:$PATH" && echo "echo "New path is" && echo "PATH='${PATH}'"
 
 javascript-job:       # This job runs in the build stage, which runs first.
   stage: javascript
