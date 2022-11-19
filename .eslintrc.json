@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es2022": true,
+        "es2018": true,
         "node": true
     },
     "plugins": [
@@ -12,7 +12,7 @@
         "plugin:sonarjs/recommended"
     ],
     "parserOptions": {
-        "ecmaVersion": 2022,
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "rules": {
