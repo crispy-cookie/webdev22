@@ -5,25 +5,28 @@
   "main": "index.js",
   "scripts": {
     "#Allgemeine_Befehle": "echo 'comment'; exit",
-    "start": "node index.js",
-    "clean": "npm run clean:dist && rm -rf ./node_modules",
-    "lint": "semistandard --fix --verbose index.js || snazzy",
-    "debug": "npm run combinejs && npm run compileless",
-    "build": "npm run debug && npm run minjs && npm run minless",
+    "prestart": "mkdir './client/dist/' && cp client/src/assets client/dist/assets && cp client/src/index.html /client/dist/index.html",
+    "start": "node index.mjs",
+    "clean": "npm run clean:dist && npm run clean:node",
+    "clean:dist": "rm -rf './client/dist/'",
+    "clean:node": "rm -rf './node_modules'",
+    "lint": "npm run check:semi && npm run check:less",
+    "debug": "npm run combine:js && npm run compile:less",
+    "build": "npm run debug && npm run min:js && npm run min:less",
     "#weitere_zusammengesetzte_Befehle": "echo 'comment'; exit",
-    "check": "npm run checksemi && npm run checklint && npm run checkless",
-    "minall": "echo 'run \"debug\" first' && sleep 3 &&npm run minjs && npm run minless",
+    "check": "npm run check:semi && npm run check:lint && npm run check:less",
+    "min": "echo 'run \"debug\" first' && sleep 3 &&npm run min:js && npm run min:less",
     "#atomare_Befehle": "echo 'comment'; exit",
-    "checkless": "lesshint client/src/styles",
-    "compileless": "lessc webdev22/client/src/styles/custom.less webdev22/client/dist/styles/custom.css",
-    "minless": "lessc --clean-css webdev22/client/src/styles/custom.less webdev22/client/dist/styles/custom.min.css",
-    "minjs": "terser client/dist/bundle.js --compress --mangle -o client/dist/bundle.min.js",
-    "checksemi": "semistandard --fix --verbose main.mjs | snazzy",
-    "combinejs": "esbuild client/src/js/main.mjs --log-level=warning --bundle --outfile=client/dist/bundle.js",
-    "checklint": "eslint index.js client/src/js/** server/**"
+    "check:less": "lesshint './client/src/styles'",
+    "compile:less": "lessc './client/src/styles/custom.less' './client/dist/styles/custom.css'",
+    "min:less": "lessc --clean-css './client/src/styles/custom.less' './client/dist/styles/custom.min.css'",
+    "min:js": "terser './client/dist/bundle.js' --compress --mangle -o './client/dist/bundle.min.js'",
+    "check:semi": "semistandard --fix --verbose './client/src/js/*.js' './lib/**/*.js' './server/**/*.js' || snazzy",
+    "combine:js": "esbuild './client/src/js/main.mjs' --log-level=warning --bundle --outfile=./client/dist/bundle.js",
+    "check:lint": "eslint './index.js' './client/src/js/**' './server/** lib/**'"
   },
   "dependencies": {
-    "mongodb": "^4.12.0"
+    "mongodb": "^4.12.1"
   },
   "devDependencies": {
     "esbuild": "^0.15.14",
