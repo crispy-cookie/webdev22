@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "#Allgemeine_Befehle": "echo 'comment'; exit",
-    "prestart": "mkdir './client/dist/' && cp client/src/assets client/dist/assets && cp client/src/index.html /client/dist/index.html",
+    "prestart": "mkdir './client/dist/' && cp './client/src/assets' './client/dist/assets' && cp './client/src/index.html' './client/dist/index.html'",
     "start": "node index.mjs",
     "clean": "npm run clean:dist && npm run clean:node",
     "clean:dist": "rm -rf './client/dist/'",
