@@ -6,7 +6,7 @@
   "scripts": {
     "#Allgemeine_Befehle": "echo 'comment'; exit",
     "start": "node index.js 8080",
-    "gen:dist": "mkdir './client/dist/' && cp './client/src/assets/' './client/dist/assets/' && cp './client/src/index.html' './client/dist/index.html'",
+    "gen:dist": "mkdir './client/dist/' && cp -r './client/src/assets/' './client/dist/assets/' && cp -r './client/src/index.html' './client/dist/index.html'",
     "clean": "npm run clean:dist && npm run clean:node",
     "clean:dist": "rm -rf './client/dist/'",
     "clean:node": "rm -rf './node_modules/'",
@@ -20,11 +20,13 @@
     "#atomare_Befehle": "echo 'comment'; exit",
     "check:less": "lesshint './client/src/styles/style.less'",
     "compile:less": "lessc client/src/styles/style.less ./client/dist/styles/style.css",
-    "min:less": "lessc --clean-css './client/src/styles/custom.less' './client/dist/styles/style.min.css'",
+    "min:less": "lessc --clean-css './client/src/styles/style.less' './client/dist/styles/style.min.css'",
     "min:js": "terser './client/dist/bundle.js' --compress --mangle -o './client/dist/bundle.min.js'",
     "check:semi": "semistandard --fix --verbose './client/src/js/*.mjs' './lib/**/*.mjs' './server/**/*.mjs' | snazzy",
+    
+    "": "vvvv muss bei combine:js: lib/client/ mit aufgenommen werden???",
     "combine:js": "esbuild './client/src/js/main.mjs' --log-level=warning --bundle --outfile=./client/dist/bundle.js",
-    "check:lint": "eslint './index.js' './client/src/js/**' './server/** lib/**'"
+    "check:lint": "eslint './index.js' './client/src/js/*' './server/**' 'lib/**'"
   },
   "dependencies": {
     "mongodb": "^4.12.1"
