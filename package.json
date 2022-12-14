@@ -8,10 +8,8 @@
     "start": "node index.js 8080",
     "gen:dist": "mkdir './client/dist/' && cp -r './client/src/assets/' './client/dist/assets/' && cp -r './client/src/index.html' './client/dist/index.html'",
     "clean": "npm run clean:dist && npm run clean:node",
-
     "clean:dist": "rm -rf './client/dist/'",
     "clean:node": "rm -rf './node_modules/'",
-
     "lint": "npm run check:semi && npm run check:less",
     "pre-debug": "gen:dist",
     "debug": "npm run combine:js && npm run compile:less",
@@ -27,6 +25,7 @@
     "combine:js": "esbuild './client/src/js/main.mjs' --log-level=warning --bundle --outfile=./client/dist/bundle.js"
   },
   "dependencies": {
+    "express": "^4.18.2",
     "mongodb": "^4.12.1"
   },
   "devDependencies": {
