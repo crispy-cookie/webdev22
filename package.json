@@ -2,7 +2,7 @@
   "name": "webdev",
   "version": "0.1.2",
   "description": "Tool zur Veranstaltungsplanung, Verwaltung von Gaestelisten und Sitzplanung",
-  "main": "index.js",
+  "main": "./client/src/js/Main.mjs",
   "scripts": {
     "#Allgemeine_Befehle": "echo 'comment'; exit",
     "prestart": "mkdir './client/dist/' && cp './client/src/assets' './client/dist/assets' && cp './client/src/index.html' './client/dist/index.html'",
@@ -22,14 +22,14 @@
     "min:less": "lessc --clean-css './client/src/styles/custom.less' './client/dist/styles/custom.min.css'",
     "min:js": "terser './client/dist/bundle.js' --compress --mangle -o './client/dist/bundle.min.js'",
     "check:semi": "semistandard --fix --verbose './client/src/js/*.js' './lib/**/*.js' './server/**/*.js' || snazzy",
-    "combine:js": "esbuild './client/src/js/main.mjs' --log-level=warning --bundle --outfile=./client/dist/bundle.js",
+    "combine:js": "esbuild ./client/src/js/main.mjs --log-level=warning --bundle --outfile=./client/dist/bundle.js",
     "check:lint": "eslint './index.js' './client/src/js/**' './server/** lib/**'"
   },
   "dependencies": {
     "mongodb": "^4.12.1"
   },
   "devDependencies": {
-    "esbuild": "^0.15.14",
+    "esbuild": "^0.15.18",
     "eslint": "^7.32.0",
     "eslint-plugin-sonarjs": "^0.16.0",
     "less": "^4.1.3",
