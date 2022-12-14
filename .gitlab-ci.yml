@@ -25,24 +25,37 @@ stages:          # List of stages for jobs, and their order of execution
 ## Falls ein Befehl im Script fehlschlaegt, wird ein Fehler geworfen
 ## siehe http://redsymbol.net/articles/unofficial-bash-strict-mode/
 before_script:
-  - set -o pipefail
+  - set -e -o pipefail
 
 jslint-job:
   stage: jslint
   script:
-    - npm run lint
+    - set -e -o pipefail
+    - npm run check:semi
+    - npm run check:less
+  artifacts:
+    paths:
+      - client/
 
 javascript-job:       # This job runs in the build stage, which runs first.
   stage: javascript
   script:
     - echo 'Kombiniere Javascript...'
-    - npm run combinejs && echo 'combine done.\nStarting minjs' && npm run minjs 
-    - echo 'Javascript Stage fertig'
+    - set -e -o pipefail
+    - npm run combine:js
+    - npm run min:js
+  artifacts:
+    paths:
+      - client/
 
 css-less-job:   # This job runs in the test stage.
   stage: cssless    # It only starts when the job in the build stage completes successfully.
   script:
     - echo 'Kompiliere CSS-less'
-    - npm run compileless && echo 'compile done.\nStarting minjs' && npm run minless
-    - echo 'CSS-less Stage fertig'
+    - set -e -o pipefail
+    - npm run compile:less
+    - npm run min:less
+  artifacts:
+    paths:
+      - client/
 
