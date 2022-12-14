@@ -25,7 +25,7 @@ stages:          # List of stages for jobs, and their order of execution
 ## Falls ein Befehl im Script fehlschlaegt, wird ein Fehler geworfen
 ## siehe http://redsymbol.net/articles/unofficial-bash-strict-mode/
 before_script:
-  - set -o pipefail
+  - set -e -o pipefail
 
 jslint-job:
   stage: jslint
