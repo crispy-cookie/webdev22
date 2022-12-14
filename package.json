@@ -23,8 +23,6 @@
     "min:less": "lessc --clean-css './client/src/styles/style.less' './client/dist/styles/style.min.css'",
     "min:js": "terser './client/dist/bundle.js' --compress --mangle -o './client/dist/bundle.min.js'",
     "check:semi": "semistandard --fix --verbose './client/src/js/*.mjs' './lib/**/*.mjs' './server/**/*.mjs' | snazzy",
-    
-    "": "vvvv muss bei combine:js: lib/client/ mit aufgenommen werden???",
     "combine:js": "esbuild './client/src/js/main.mjs' --log-level=warning --bundle --outfile=./client/dist/bundle.js",
     "check:lint": "eslint './index.js' './client/src/js/*' './server/**' 'lib/**'"
   },
