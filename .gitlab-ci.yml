@@ -30,6 +30,7 @@ before_script:
 jslint-job:
   stage: jslint
   script:
+    - set -e -o pipefail
     - npm run lint
   artifacts:
     paths:
@@ -39,6 +40,7 @@ javascript-job:       # This job runs in the build stage, which runs first.
   stage: javascript
   script:
     - echo 'Kombiniere Javascript...'
+    - set -e -o pipefail
     - npm run combine:js
     - npm run min:js
   artifacts:
@@ -49,6 +51,7 @@ css-less-job:   # This job runs in the test stage.
   stage: cssless    # It only starts when the job in the build stage completes successfully.
   script:
     - echo 'Kompiliere CSS-less'
+    - set -e -o pipefail
     - npm run compile:less
     - npm run min:less
   artifacts:
