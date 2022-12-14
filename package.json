@@ -8,8 +8,8 @@
     "prestart": "mkdir './client/dist/' && cp './client/src/assets' './client/dist/assets' && cp './client/src/index.html' './client/dist/index.html'",
     "start": "node index.mjs",
     "clean": "npm run clean:dist && npm run clean:node",
-    "clean:dist": "rm -rf './client/dist/'",
-    "clean:node": "rm -rf './node_modules'",
+    "clean:dist": "rm -rf ./client/dist/",
+    "clean:node": "rm -rf ./node_modules",
     "lint": "npm run check:semi && npm run check:less",
     "debug": "npm run combine:js && npm run compile:less",
     "build": "npm run debug && npm run min:js && npm run min:less",
@@ -29,7 +29,7 @@
     "mongodb": "^4.12.1"
   },
   "devDependencies": {
-    "esbuild": "^0.15.14",
+    "esbuild": "^0.15.18",
     "eslint": "^7.32.0",
     "eslint-plugin-sonarjs": "^0.16.0",
     "less": "^4.1.3",
