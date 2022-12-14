@@ -33,7 +33,7 @@ jslint-job:
     - npm run lint
   artifacts:
     paths:
-      - /
+      - client/
 
 javascript-job:       # This job runs in the build stage, which runs first.
   stage: javascript
@@ -42,7 +42,7 @@ javascript-job:       # This job runs in the build stage, which runs first.
     - npm run combine:js && npm run min:js
   artifacts:
     paths:
-      - /
+      - client/
 
 css-less-job:   # This job runs in the test stage.
   stage: cssless    # It only starts when the job in the build stage completes successfully.
@@ -51,5 +51,5 @@ css-less-job:   # This job runs in the test stage.
     - npm run compile:less && npm run min:less
   artifacts:
     paths:
-      - /
+      - client/
 
