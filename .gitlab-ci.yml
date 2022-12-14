@@ -19,19 +19,28 @@ image: node:latest
 
 stages:          # List of stages for jobs, and their order of execution
   - jslint
+  - lesslint
   - javascript
   - cssless
 
 ## Falls ein Befehl im Script fehlschlaegt, wird ein Fehler geworfen
 ## siehe http://redsymbol.net/articles/unofficial-bash-strict-mode/
-before_script:
-  - set -e -o pipefail
+# before_script:
+#   - set -e -o pipefail
 
 jslint-job:
   stage: jslint
   script:
     - set -e -o pipefail
     - npm run check:semi
+  artifacts:
+    paths:
+      - client/
+
+lesslint-job:
+  stage: jslint
+  script:
+    - set -e -o pipefail
     - npm run check:less
   artifacts:
     paths:
