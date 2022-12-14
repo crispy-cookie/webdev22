@@ -31,7 +31,8 @@ jslint-job:
   stage: jslint
   script:
     - set -e -o pipefail
-    - npm run lint
+    - npm run check:semi
+    - npm run check:less
   artifacts:
     paths:
       - client/
