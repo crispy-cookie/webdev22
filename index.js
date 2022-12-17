@@ -2,17 +2,17 @@
 const express = require('express');
 
 const app = express();
-const port = 3000 || 8080;
+const port = 8080;
 
 // app.use(express.static('client/dist'));
-app.use(express.static('client/src')); // remove later
+app.use(express.static('client/dist')); // remove later
 
 app.get('/hello', (req, res) => {
   res.send('Hello World!');
 });
 
 app.get('/', (req, res) => {
-  res.sendFile('/client/src/index.html');
+  res.sendFile('/client/dist/index.html');
 });
 
 app.post('/', (req, res) => {
