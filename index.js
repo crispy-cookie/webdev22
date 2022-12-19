@@ -2,7 +2,7 @@
 const express = require('express');
 
 const app = express();
-const port = 8080;
+const port = process.argv[2];
 
 // app.use(express.static('client/dist'));
 app.use(express.static('client/dist')); // remove later
