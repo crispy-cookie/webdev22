@@ -1,3 +1,0 @@
-main.mjs: uikit korrekt einbinden (siehe fehler check:semi)
-eslint: Regeln prüfen: eslintrc.json richtig einrichten (mit Vorlesung und Vorgaben vergleichen)
-
