@@ -1,10 +1,13 @@
 import { MongoClient } from 'mongodb';
+import Mongoose from 'mongoose';
 
-export default async function managemongoDB () {
+export default (function managemongoDB () {
   let client = null;
   try {
-    client = new MongoClient('mongodb://localhost:8080');
-    await client.connect();
+    client = new MongoClient('mongodb://localhost:27017/library');
+    console.log('created MongoClient');
+     client.connect();
+    console.log('connected MongoClient');
   } catch (error) {
     console.error(error);
     process.exit(-1);
@@ -13,8 +16,8 @@ export default async function managemongoDB () {
     const db = client.db('library');
     const collection = db.collection('books');
 
-    await collection.insertOne({ author: 'Stevenson, Louis', title: 'Die Schatzinsel' });
-    await collection.insertMany([
+     collection.insertOne({ author: 'Stevenson, Louis', title: 'Die Schatzinsel' });
+     collection.insertMany([
       { author: 'Verne, Jules', title: 'Die geheimnisvolle Insel' },
       { author: 'Verne, Jules', title: '20.000 Meilen unter dem Meer' },
       { author: 'Verne, Jules', title: 'Matthias Sandorf' }
@@ -24,4 +27,4 @@ export default async function managemongoDB () {
   } finally {
     client.close();
   }
-};
+})();

@@ -1,12 +1,42 @@
 import Mongoose from 'mongoose';
 import ManagemongoDB from './databaseBasis.mjs';
+import { MongoClient } from 'mongodb';
 
-Mongoose.set('strictQuery', true);
+( async function managemongoDB () {
+  let client = null;
+  try {
+    client = new MongoClient('mongodb://localhost:27017/library');
+    console.log('created MongoClient');
+    client.connect();
+    console.log('connected MongoClient');
+  } catch (error) {
+    console.error(error);
+    process.exit(-1);
+  }
+})();
 
-(async function () {
+  (async function () {
     try {
-        await Mongoose.connect('mongodb://localhost:27017/mydb');
-        await console.log('Mongoose connected to MongoDB');
+    const db = client.db('library');
+    const collection = db.collection('books');
+
+    await collection.insertOne({ author: 'Stevenson, Louis', title: 'Die Schatzinsel' });
+    await collection.insertMany([
+      { author: 'Verne, Jules', title: 'Die geheimnisvolle Insel' },
+      { author: 'Verne, Jules', title: '20.000 Meilen unter dem Meer' },
+      { author: 'Verne, Jules', title: 'Matthias Sandorf' }
+    ]);
+  } catch (error) {
+    console.error(error);
+  }/* finally {
+    client.close();
+  }*/
+})();
+
+(function MongooseConnect () {
+    try {
+         Mongoose.connect('mongodb://127.0.0.1:27017/library');
+         console.log('Mongoose connected to MongoDB');
     }
     catch (error) {
         console.error(error);
