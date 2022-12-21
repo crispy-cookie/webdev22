@@ -2,10 +2,10 @@
   "name": "webdev",
   "version": "0.2.0",
   "description": "Tool zur Veranstaltungsplanung, Verwaltung von Gaestelisten und Sitzplanung",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "#Allgemeine_Befehle": "echo comment ; exit",
-    "start": "node index.mjs 8080",
+    "start": "node index.mjs",
     "gen:dist": "mkdir -p ./client/dist/ && cp -r ./client/src/assets/ ./client/dist/assets/ && cp ./client/src/index.html ./client/dist/index.html",
     "clean": "npm run clean:dist && npm run clean:node",
     "clean:dist": "rm -rf ./client/dist/",
@@ -20,7 +20,7 @@
     "compile:less": "lessc ./client/src/styles/style.less ./client/dist/styles/style.css",
     "min:less": "lessc --clean-css ./client/src/styles/style.less ./client/dist/styles/style.css",
     "min:js": "terser ./client/dist/main.js --compress --mangle -o ./client/dist/main.js",
-    "check:semi": "semistandard --fix --verbose ./client/src/js/*.mjs ./lib/**/*.mjs ./server/**/*.mjs | snazzy",
+    "check:semi": "semistandard --fix --verbose ./index.mjs ./client/src/js/*.mjs ./lib/**/*.mjs ./server/**/*.mjs | snazzy",
     "combine:js": "esbuild ./client/src/js/main.mjs --log-level=warning --bundle --platform=node --outfile=./client/dist/main.js"
   },
   "dependencies": {

@@ -1,8 +1,8 @@
 'use strict';
-const express = require('express');
+import express from 'express';
 
 const app = express();
-const port = process.argv[2];
+const port = parseInt(process.argv[2]) ? parseInt(process.argv[2]) : '8080';
 
 // app.use(express.static('client/dist'));
 app.use(express.static('client/dist')); // remove later
