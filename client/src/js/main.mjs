@@ -10,7 +10,7 @@ console.log('UIKit Version Number: ' + version);
 (async function () {
     let client = null;
     try {
-        client = new MongoClient('mongodb://localhost:8080');
+        client = new MongoClient('mongodb://localhost:27017');
         await client.connect();
     }
     catch (error) {

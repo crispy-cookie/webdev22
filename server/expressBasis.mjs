@@ -1,4 +1,4 @@
-import express = 'express';
+import express from 'express';
 
 const PORT = 8080;
 const BASE_URI = `http://localhost:${PORT}`;
