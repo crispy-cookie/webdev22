@@ -53,7 +53,7 @@ Minifikation = JS-Dateien und CSS-less verkleinern
 ### Minifiziert und obfuskiert Bundle.js
 - `"minjs": "terser client/dist/bundle.js --compress --mangle -o client/dist/bundle.min.js"`
 
-### Automatische Code-Formatierung mit lesbarer Ausgabe
+### Überprüfung der Code-Qualität und Automatische Code-Formatierung mit lesbarer Ausgabe
 - `"checksemi": "semistandard --fix --verbose Main.mjs | snazzy"`
 
 ### kombiniert alle JS-Dateien zu einer zusammen
