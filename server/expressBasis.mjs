@@ -25,6 +25,115 @@ server.post(`${BASE_URI}/veranstaltungen/list/${id}`, (request, response) => {
 });
 */
 
+// Hilfsfunktion
 function getDatabase (id) {
   return 'test';
 }
+
+server.listen(port, (err) => {
+  if (err) console.log(err);
+  console.log(`Example app listening on port ${port}`);
+});
+
+
+/* ############
+** #
+** # Routen
+** #
+** ############
+** todo: vlt auslagern
+**
+** get > lesen, post > anlegen, put > bearbeiten, delete > loeschen
+*/
+
+/*
+** Veranstaltungen
+*/
+
+// Liste der Veranstaltungen
+server.get('/events', (req, resp) => {
+  res.send('bla');
+});
+
+// LV
+server.post('/events', (req, resp) => {
+  res.send('bla');
+});
+
+// Veranstaltungen
+server.get('/events/:id', (req, resp) => {
+  res.send('bla');
+});
+
+/* // put soll fuer Veranstaltungen nicht unterstuetzt werden
+// V
+server.put('/event/:id', (req, resp) => {
+  res.send('bla');
+});
+*/
+
+// V
+server.delete('/event/:id', (req, resp) => {
+  res.send('bla');
+});
+
+
+/*
+** Gaeste
+*/
+
+
+// LG
+server.get('/guests', (req, resp) => {
+  res.send('bla');
+});
+
+// LG
+server.post('/guests', (req, resp) => {
+  res.send('bla');
+});
+
+// G
+server.get('/guests/:id', (req, resp) => {
+  res.send('bla');
+});
+
+// G
+server.put('/guests/:id', (req, resp) => {
+  res.send('bla');
+});
+
+// G
+server.delete('/guests/:id', (req, resp) => {
+  res.send('bla');
+});
+
+
+/*
+** Tische / Sitze Planung
+*/
+
+// LP
+server.get('/seating', (req, resp) => {
+  res.send('bla');
+});
+
+// LP
+server.post('/seating', (req, resp) => {
+  res.send('bla');
+});
+
+// P
+server.get('/table/:id', (req, resp) => {
+  res.send('bla');
+});
+
+// P
+server.put('/table/:id', (req, resp) => {
+  res.send('bla');
+});
+
+// P
+server.delete('/table/:id', (req, resp) => {
+  res.send('bla');
+});

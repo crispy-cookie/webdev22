@@ -118,7 +118,7 @@ b)Einladungen
                 Gast
             </td>
             <td>
-                /guests
+                /guests/:id
             </td>
             <td>
                 GET
@@ -132,7 +132,7 @@ b)Einladungen
                 Liste der Gäste
             </td>
             <td>
-                /guests/:id
+                /guests
             </td>
             <td>
                 GET
