@@ -6,6 +6,7 @@ console.log(BASE_URI);
 
 const server = express();
 
+/* Beispiel fuer unten; TODO: muss ich noch anpassen
 server.get('/veranstaltungen/list/:id', (request, response) => {
   const id = request.params.id;
   const dbList = getDatabase(id);
@@ -41,7 +42,7 @@ server.listen(port, (err) => {
 ** # Routen
 ** #
 ** ############
-** todo: vlt auslagern
+** TODO: vlt auslagern
 **
 ** get > lesen, post > anlegen, put > bearbeiten, delete > loeschen
 */
@@ -83,27 +84,27 @@ server.delete('/event/:id', (req, resp) => {
 */
 
 
-// LG
+// ListeGaeste
 server.get('/guests', (req, resp) => {
   res.send('bla');
 });
 
-// LG
+// ListeGaeste
 server.post('/guests', (req, resp) => {
   res.send('bla');
 });
 
-// G
+// Gaeste
 server.get('/guests/:id', (req, resp) => {
   res.send('bla');
 });
 
-// G
+// Gaeste
 server.put('/guests/:id', (req, resp) => {
   res.send('bla');
 });
 
-// G
+// Gaeste
 server.delete('/guests/:id', (req, resp) => {
   res.send('bla');
 });
@@ -113,27 +114,28 @@ server.delete('/guests/:id', (req, resp) => {
 ** Tische / Sitze Planung
 */
 
-// LP
+// ListePlanung
 server.get('/seating', (req, resp) => {
   res.send('bla');
 });
 
-// LP
+// ListePlanung
 server.post('/seating', (req, resp) => {
   res.send('bla');
 });
 
-// P
+// Planung
 server.get('/table/:id', (req, resp) => {
   res.send('bla');
 });
 
-// P
+/* // Planung soll nicht unterstuetzt werden
 server.put('/table/:id', (req, resp) => {
   res.send('bla');
 });
+*/
 
-// P
+// Planung
 server.delete('/table/:id', (req, resp) => {
   res.send('bla');
 });

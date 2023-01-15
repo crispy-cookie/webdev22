@@ -27,29 +27,32 @@ mongoose => {
   });
   return Vorlage;
 };
-
-const Veranstaltung = mongoose.model('veranstaltung'),
-  mongoose.Schema({
-    name: String,
-    timestamp: Date,
-    gaesteliste: String,
-    sitzplan: String
-});
-
-const Gaesteliste = mongoose.model('gaesteliste'),
-  mongoose.Schema({
-    name: String,
-    kind: Boolean,
-    einladungsstatus: Array
-});
-// Enumeration (als Array) { "einladungsstatus": "unbekannt", "eingeladen", "zugesagt", "abgesagt" }
-
-const Sitzplan = mongoose.model('sitzplan'),
-  mongoose.Schema({
-    anzTische: Number,
-    anzSitze: Number,
-    Bestuhlung: Number
-});
+mongoose => {
+  const Veranstaltung = mongoose.model('veranstaltung'),
+    mongoose.Schema({
+      name: String,
+      timestamp: Date,
+      gaesteliste: String,
+      sitzplan: String
+  });
+};
+mongoose => {
+  const Gaesteliste = mongoose.model('gaesteliste'),
+    mongoose.Schema({
+      name: String,
+      kind: Boolean,
+      einladungsstatus: ['unbekannt', 'eingeladen', 'zugesagt', 'abgesagt']
+  });
+  // Enumeration (als Array) { "einladungsstatus": "unbekannt", "eingeladen", "zugesagt", "abgesagt" }
+};
+mongoose => {
+  const Sitzplan = mongoose.model('sitzplan'),
+    mongoose.Schema({
+      anzTische: Number,
+      anzSitze: Number,
+      Bestuhlung: Number // als ID vlt, Keine Ahnung was ich mir dabei gedacht habe
+  });
+};
 
 /* Attribute:
 Eine Veranstaltung verfügt mindestens über die Eigenschaften:
