@@ -4,7 +4,7 @@ import express from 'express';
 
 const app = express();
 const port = parseInt(process.argv[2]) ? parseInt(process.argv[2]) : '8080';
-const staticPath = path.join(path.dirname(process.argv[1]), 'client/dist/'); // Pfad aendern falls /index.mjs zu /server/expressBasis.js wird -> '../client/dist/'
+const staticPath = path.join(path.dirname(process.argv[1]), path.join('client', 'dist')); // Pfad aendern falls /index.mjs zu /server/expressBasis.js wird -> '../client/dist/'
 
 app.use(express.static(staticPath));
 
