@@ -60,7 +60,7 @@ server.post('/events', async (req, res) => {
   const new_event = new events({
     name: req.body.name,
     timestamp: req.body.timestamp,
-    seating: req.body.seating,
+    seating: req.body.seating,                
     guestlist: req.body.guestlist
   });
 
@@ -88,7 +88,7 @@ server.put('/events/:id', async (req, res) => {
     if(!events.exists({_id: req.params.id})){
       response.sendStatus(404);
     }else{
-      let updateEvent = events.updateOne(
+      let updateEvent = await events.updateOne(
         {_id: req.params.id},
         {$set: {guestlist: req.body.guestlist}}
       );
@@ -147,7 +147,7 @@ server.post('/guests', async (req, res) => {
 server.get('/guests/:id', async (req, res) => {
   try{
     const guest = await guests.findById(req.params.id);
-    res.json(guests);
+    res.json(guest);
   }catch(err){
     console.log(err);
   }
@@ -158,11 +158,16 @@ server.put('/guests/:id', async (req, res) => {
   if(!guests.exists({_id: req.params.id})){
     response.sendStatus(404);
   }else{
-    let updateGuest = guests.updateOne(
-      {_id: req.params.id},
-      {$set: {status: req.body.status}}
-    );
-    res.json(updateGuest);
+    try {
+      let updateGuest = await guests.updateOne(
+        { _id: req.params.id },
+        { $set: { status: req.body.status } },
+        { runValidators: true }
+      );
+      res.json(updateGuest);
+    } catch (err) {
+      console.log(err);
+    }
   }
 });
 
@@ -197,7 +202,7 @@ server.get('/seatings', async (req, res) => {
 
 // 
 server.post('/seatings', async (req, res) => {
-  const new_seating = new guests({
+  const new_seating = new seatings({
     associated_event: req.body.associated_event,
     count_table: req.body.count_table,
     count_seats_per_table: req.body.count_seats_per_table,
@@ -217,7 +222,7 @@ server.post('/seatings', async (req, res) => {
 server.get('/seatings/:id', async (req, res) => {
   try{
     const seating = await seatings.findById(req.params.id);
-    res.json(guests);
+    res.json(seating);
   }catch(err){
     console.log(err);
   }
@@ -228,12 +233,16 @@ server.put('/seatings/:id', async (req, res) => {
   if(!seatings.exists({_id: req.params.id})){
     response.sendStatus(404);
   }else{
-    let updateSeating = seatings.updateOne(
-      {_id: req.params.id},
-      {$set: {seat_mapping: req.body.seat_mapping}} // TODO: Vor dieser Zuordnung muss noch eine Überprüfung stattfinden ob die Anzahl der Keys zu der Anzahl
-                                                    // der Tische passt, sowie jeweils pro Tisch die Anzahl der Sitzplätze zu den Values passt
-    );
-    res.json(updateSeating);
+    try {
+      let updateSeating = await seatings.updateOne(
+        { _id: req.params.id },
+        { $set: { seat_mapping: req.body.seat_mapping } } // TODO: Vor dieser Zuordnung muss noch eine Überprüfung stattfinden ob die Anzahl der Keys zu der Anzahl
+                                                          // der Tische passt, sowie jeweils pro Tisch die Anzahl der Sitzplätze zu den Values passt
+      );
+      res.json(updateSeating);
+    } catch (err) {
+      console.log(err);
+    }
   }
 });
 

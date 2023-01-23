@@ -63,7 +63,7 @@ let guest_schema = new mongoose.Schema({
 let guests = new mongoose.model("Guests", guest_schema);
 
 let seating_schema = new mongoose.Schema({
-  associated_event: {type: mongoose.Schema.Types.ObjectId, ref: 'Event'}, //Jeder Sitzplan gehört zu einem Event
+  associated_event: {type: mongoose.Schema.Types.ObjectId, ref: 'Events'}, //Jeder Sitzplan gehört zu einem Event
   count_table: Number, 
   count_seats_per_table: Number, 
   seat_variant: {type: String, enum:['einseitig', 'zweiseitig']},
