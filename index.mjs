@@ -59,7 +59,7 @@ initializeDatabase();
   );
 
   test_event1.save();
-});
+})();
 
 
 // function um Testdaten zulöschen

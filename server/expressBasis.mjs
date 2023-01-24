@@ -176,6 +176,8 @@ server.delete('/guests/:id', async (req, res) => {
   try{
 
     const removedGuest = await guests.deleteOne({_id: req.params.id});
+    await events.updateMany({guestlist: req.params.id},{'$pull':{guestlist: req.params.id}}); // entfernt die guest_id in jedem Event, dass diese in der Gästeliste hat
+    //TODO sitzplanung entfernen aus seat_mapping
     res.json(removedGuest);
   
   }catch(err){
@@ -246,18 +248,20 @@ server.put('/seatings/:id', async (req, res) => {
   }
 });
 
-// Gaeste
+// Sitzplan
+/* delete beim Sitzplan unsinnig Sitzplan wird vollständig entfernt wenn Veranstaltung nicht mehr vorhanden
 server.delete('/seatings/:id', async (req, res) => {
   try{
 
     const removedSeating = await seatings.deleteOne({_id: req.params.id});
+    await events.updateOne({seating: req.params.id},{ $unset:{seating: req.params.id}}); // Beim entfernen des Sitzplans, soll die Referenz bei der Veranstaltung auch entfernt werden
     res.json(removedSeating);
   
   }catch(err){
     console.log(err);
   }
 });
-
+*/
 /*
 // Planung
 server.get('/table/:id', (req, res) => {

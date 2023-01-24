@@ -67,11 +67,15 @@ let seating_schema = new mongoose.Schema({
   count_table: Number, 
   count_seats_per_table: Number, 
   seat_variant: {type: String, enum:['einseitig', 'zweiseitig']},
-  seat_mapping: {type: Map, of: [mongoose.Schema.Types.ObjectId]} //Überlegung hier Keys sind die Tische und Values die IDs der Gäste an den Tischen
+  seat_mapping: {type: Map, of:{ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Guests'}]}} //Überlegung hier Keys sind die Tische und Values die IDs der Gäste an den Tischen
                                                                   //Überprüfung das Values nicht die Anzahl der Plätze pro Tische überschreiten und das Keys nicht mehr als Anzahl der werden
                                                                   //nicht ganz zufrieden mit der Lösung da keys beliebige Namen haben können, evtl. genauer nachschauen wie Mongoose Maps funktionieren
 
 });
 let seatings = new mongoose.model("Seatings", seating_schema);
+
+
+
+
 
 export { initializeDatabase, events,  guests, seatings };
