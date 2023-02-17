@@ -2,10 +2,10 @@
 import path from 'path';
 import express from 'express';
 // import { initializeDatabase, seatings, Events, guests } from './server/mongooseBasis.mjs';
-import { initializeDatabase } from './server/mongooseBasis.mjs';
+import { initializeDatabase,Events,Seatings,Guests } from './server/mongooseBasis.mjs';
 import { server } from './server/expressBasis.mjs';
 
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 const app = express();
 const port = parseInt(process.argv[2]) ? parseInt(process.argv[2]) : '8080';
@@ -15,17 +15,17 @@ app.use(express.static(staticPath));
 app.use(server);
 
 initializeDatabase();
-/*
+
 // test-Veranstaltung DummyDaten
 (async function () {
-  const guestTest1 = new guests({
+  const guestTest1 = new Guests({
     _id: mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'),
     name: 'Max Muster',
     has_child: false,
     status: 'unbekannt'
   });
 
-  const guestTest2 = new guests({
+  const guestTest2 = new Guests({
     _id: mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002'),
     name: 'Kevin Kuster',
     has_child: false,
@@ -35,7 +35,7 @@ initializeDatabase();
   guestTest1.save();
   guestTest2.save();
 
-  const testSeating = new seatings({
+  const testSeating = new Seatings({
     _id: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001'),
     count_table: 10,
     count_seats_per_table: 4,
@@ -60,9 +60,18 @@ initializeDatabase();
     guestlist: [mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'), mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002')]
   });
 
-  seatings.updateOne(
+  await Seatings.updateOne(
     { _id: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001') },
     { $set: { associated_event: mongoose.Types.ObjectId('6eb6e7e7e9b7f4194e000001') } }
+  );
+
+
+  let map = new Map();
+  map.set("1",[mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'), mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002')]);
+
+ await Seatings.updateOne(
+    { _id: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001') },
+    { $set: { seat_mapping: map } }
   );
 
   testEvent1.save();
@@ -82,23 +91,23 @@ initializeDatabase();
   }).catch(function (error) {
     console.log(error);
   });
-  await guests.deleteMany({ _id: mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001') }).then(function () {
+  await Guests.deleteMany({ _id: mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001') }).then(function () {
     console.log('Data deleted!');
   }).catch(function (error) {
     console.log(error);
   });
-  await guests.deleteMany({ _id: mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002') }).then(function () {
+  await Guests.deleteMany({ _id: mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002') }).then(function () {
     console.log('Data deleted!');
   }).catch(function (error) {
     console.log(error);
   });
-  await seatings.deleteMany({ _id: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001') }).then(function () {
+  await Seatings.deleteMany({ _id: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001') }).then(function () {
     console.log('Data deleted!');
   }).catch(function (error) {
     console.log(error);
   });
 });
-*/
+
 app.get('/hello', (req, res) => {
   res.send('Hello World!');
 });
@@ -113,6 +122,42 @@ app.get('/index', (req, res) => {
 
 app.get('/listevents', (req, res) => {
   res.sendFile(staticPath + '/html/listevents.html');
+});
+
+app.get('/guestlist', async (req,res)=>{
+  const eventId = req.query.event ;
+  if(!eventId){
+    res.sendStatus(406);
+  }
+  try {
+    const objId = mongoose.Types.ObjectId(eventId.toString());
+    if (!(await Events.exists({ _id: objId }))) {
+      res.sendStatus(404);
+    } else {
+      res.sendFile(staticPath + '/html/guestlist.html');
+    }
+  }
+  catch (err) {
+    res.sendStatus(404);
+  }
+});
+
+app.get('/seatinglist', async (req,res)=>{
+  const eventId = req.query.event;
+  if(!eventId){
+    res.sendStatus(406);
+  }
+  try {
+    const objId = mongoose.Types.ObjectId(eventId.toString());
+    if (!(await Events.exists({ _id: objId }))) {
+      res.sendStatus(406);
+    } else {
+      res.sendFile(staticPath + '/html/seatinglist.html');
+    }
+  }
+  catch (err) {
+    res.sendStatus(404);
+  }
 });
 
 app.listen(port, (err) => {

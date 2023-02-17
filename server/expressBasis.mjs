@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express from 'express';
 import { Events, Guests, Seatings } from './mongooseBasis.mjs';
 import bodyParser from 'body-parser';
 
@@ -83,7 +83,7 @@ server.get('/events/:id', async (req, res) => {
 // V
 server.put('/events/:id', async (req, res) => {
   if (!Events.exists({ _id: req.params.id })) {
-    response.sendStatus(404);
+    res.sendStatus(404);
   } else {
     const updateEvent = await Events.updateOne(
       { _id: req.params.id },
@@ -146,7 +146,7 @@ server.get('/guests/:id', async (req, res) => {
 // Gaeste, nur der Einladestatus kann verändert werden
 server.put('/guests/:id', async (req, res) => {
   if (!Guests.exists({ _id: req.params.id })) {
-    response.sendStatus(404);
+    res.sendStatus(404);
   } else {
     try {
       const updateGuest = await Guests.updateOne(
@@ -218,7 +218,7 @@ server.get('/seatings/:id', async (req, res) => {
 // Sitzplan, nur die Zuordnung der Tische kann verändert werden
 server.put('/seatings/:id', async (req, res) => {
   if (!Seatings.exists({ _id: req.params.id })) {
-    response.sendStatus(404);
+    res.sendStatus(404);
   } else {
     try {
       const updateSeating = await Seatings.updateOne(
