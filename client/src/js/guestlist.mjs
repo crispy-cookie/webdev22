@@ -1,11 +1,11 @@
-const apiUrl = 'http://localhost:8080/events';
+const apiEventUrl = 'http://localhost:8080/events/';
 const apiGuestUrl = 'http://localhost:8080/guests/';
 
 async function listGuests () {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const eventId = urlParams.get('event');
-  const response = await fetch(apiUrl + '/' + eventId);
+  const response = await fetch(apiEventUrl + eventId);
   const data = await response.json();
 
   const eventName = data.name;
@@ -30,11 +30,10 @@ async function listGuests () {
     }
 
     div.textContent = 'Name: ' + dataGuest.name + ', Kinder? ' + hasChild + ', Status: ' + dataGuest.status + '   ';
-    div.setAttribute('style', 'border:1px solid black;');
+    div.setAttribute('style', 'border:2px solid black;');
     const button = document.createElement('button');
     button.textContent = 'Löschen';
     button.setAttribute('id', 'gl_button');
-    button.setAttribute('class', 'uk-align-right');
     button.addEventListener('click', async event => {
       const responseDelete = await fetch(apiGuestUrl + element, { method: 'DELETE' });
       const deleteGuest = responseDelete.json();
@@ -65,6 +64,27 @@ async function createGuest () {
     const response = await fetch(apiGuestUrl, options);
     const newCreatedGuest = await response.json();
     console.log(newCreatedGuest);
+
+    // aktualisieren der Gästeliste beim Event
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const eventId = urlParams.get('event');
+    const responseEvent = await fetch(apiEventUrl + eventId);
+    const getEvent = await responseEvent.json();
+
+    const eventGuestlist = getEvent.guestlist;
+    eventGuestlist.push(newCreatedGuest._id);
+
+    const updatedGuestlist = { guestlist: eventGuestlist };
+    const optionsPut = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedGuestlist)
+    };
+
+    const responseUpdatedEvent = await fetch(apiEventUrl + eventId, optionsPut);
+    const updatedEvent = responseUpdatedEvent.json();
+    console.log(updatedEvent);
   } catch (err) {
     console.log(err);
   } finally {
