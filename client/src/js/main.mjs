@@ -2,7 +2,7 @@ import UIkit from 'uikit';
 // import Paginate from './paginate.mjs';
 
 import { listEvents } from './listevents.mjs';
-import { listGuests } from './guestlist.mjs';
+import { listGuests, createGuest } from './guestlist.mjs';
 import { listSeating } from './seatinglist.mjs';
 import { createNewEvent } from './addevent.mjs';
 
@@ -10,6 +10,7 @@ const bodyListEvent = document.getElementById('bodylistevent');
 const bodyGuestList = document.getElementById('bodyguestlist');
 const bodySeatingList = document.getElementById('bodyseatinglist');
 const buttonAddEvent = document.getElementById('ae_fsubmit');
+const buttonAddGuest = document.getElementById('gl_fsubmit');
 
 if (bodyListEvent) {
   bodyListEvent.addEventListener('load', listEvents());
@@ -22,6 +23,9 @@ if (bodySeatingList) {
 }
 if (buttonAddEvent) {
   buttonAddEvent.addEventListener('click', async event => { createNewEvent(); });
+}
+if (buttonAddGuest) {
+  buttonAddGuest.addEventListener('click', async event => { createGuest(); });
 }
 
 const version = UIkit.version;

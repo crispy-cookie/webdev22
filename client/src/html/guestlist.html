@@ -1,0 +1,34 @@
+<!DOCTYPE html >
+<html>
+  <head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Webapp Veranstaltungstool</title> 
+	<link rel="stylesheet" href="../styles/style.css" />
+	<script defer src="../js/main.mjs"></script>
+</head>
+<body id="bodyguestlist" class="uk-align-left">
+	<header></header> 
+	<main id="gl_main">
+		<h1 id="gl_main_h1" class="uk-text-background">Gästeliste der Veranstaltung: </h1>
+	</main>
+	<footer style=" height: 2%; padding-top: 2%;">
+		<div>Gast hinzufügen: </div>
+		<label for="gl_fname">Name: </label>
+		<input type="text" id="gl_fname" value="">
+		<label for="gl_fhaschild">Kinder? </label>
+		<select id="gl_fhaschild">
+			<option value="true">Ja</option>
+			<option value="false">Nein</option>
+		</select>
+		<label for="gl_fstatus">Einladungsstatus? </label>
+		<select id="gl_fstatus">
+			<option value="unbekannt">unbekannt</option>
+			<option value="eingeladen">eingeladen</option>
+			<option value="zugesagt">zugesagt</option>
+			<option value="abgesagt">abgesagt</option>
+		</select>
+		<button id="gl_fsubmit">Hinzufügen</button>
+	</footer>
+  </body>
+</html>

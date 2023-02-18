@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Webapp Veranstaltungstool</title> 
+	<link rel="stylesheet" href="../styles/style.css" />
+	<script defer src="../js/main.mjs"></script>
+  </head>
+  <body>
+	<header></header>
+	<main>
+		<h1>Veranstaltungen</h1>
+		<h2>Neue Veranstaltung</h2>
+            <label for="ae_fname">Name der Veranstaltung: </label>
+			<input type="text" id="ae_fname" value="" /><br><br>
+            <label for="ae_fdate">Wann soll es stattfinden? </label>
+			<input type="datetime-local" id="ae_fdate" value=""/><br><br>
+            <label for="ae_ftable">Anzahl der Tische: </label>
+            <input type="number" id="ae_ftable" value=""/><br><br>
+            <label for="ae_fseats">Sitze pro Tisch: </label>
+            <input type="number" id="ae_fseats" value=""><br><br>
+            <label for="ae_fvariant">Wie soll die Bestuhlung aussehen(einseitig oder zweiseitig)? </label>
+            <input type="text" id="ae_fvariant" value=""><br><br>
+			<button id="ae_fsubmit">Erstellen</button>
+	</main>
+	<footer></footer>
+  </body>
+</html>
