@@ -47,7 +47,7 @@ initializeDatabase();
   const testEvent1 = new Events({
     _id: mongoose.Types.ObjectId('6eb6e7e7e9b7f4194e000001'),
     name: 'test1',
-    timestamp: new Date('December 17, 1995 03:24:00'),
+    timestamp: new Date('1995-12-17T03:24:00'),
     seating: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001'),
     guestlist: [mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'), mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002')]
   });
@@ -55,7 +55,7 @@ initializeDatabase();
   const testEvent2 = new Events({
     _id: mongoose.Types.ObjectId('6eb6e7e7e9b7f4194e000002'),
     name: 'test2',
-    timestamp: new Date('December 17, 1995 03:24:00'),
+    timestamp: new Date('1996-12-17T15:24:00'),
     seating: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001'),
     guestlist: [mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'), mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002')]
   });
@@ -158,6 +158,10 @@ app.get('/seatinglist', async (req,res)=>{
   catch (err) {
     res.sendStatus(404);
   }
+});
+
+app.get('/addevent', (req,res)=>{
+  res.sendFile(staticPath+'/html/addevent.html');
 });
 
 app.listen(port, (err) => {

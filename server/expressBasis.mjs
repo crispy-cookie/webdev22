@@ -79,17 +79,30 @@ server.get('/events/:id', async (req, res) => {
   }
 });
 
-// put soll fuer Veranstaltungen nicht unterstuetzt werden <-> Überlegung über put die Gästeliste aktualisieren lassen
+// put soll fuer Veranstaltungen nicht unterstuetzt werden <-> Überlegung über put die Gästeliste oder Sitzplan aktualisieren lassen
 // V
 server.put('/events/:id', async (req, res) => {
   if (!Events.exists({ _id: req.params.id })) {
     res.sendStatus(404);
   } else {
-    const updateEvent = await Events.updateOne(
-      { _id: req.params.id },
-      { $set: { guestlist: req.body.guestlist } }
-    );
-    res.json(updateEvent);
+    const updatedGuestlist = req.body.guestlist;
+
+    if (updatedGuestlist) {
+      const updateEvent = await Events.updateOne(
+        { _id: req.params.id },
+        { $set: { guestlist: updatedGuestlist } }
+      );
+      res.json(updateEvent);
+    }
+
+    const updatedSeating = req.body.seating;
+    if (updatedSeating) {
+      const updateEvent = await Events.updateOne(
+        { _id: req.params.id },
+        { $set: { seating: updatedSeating } }
+      );
+      res.json(updateEvent);
+    }
   }
 });
 
@@ -215,18 +228,33 @@ server.get('/seatings/:id', async (req, res) => {
   }
 });
 
-// Sitzplan, nur die Zuordnung der Tische kann verändert werden
+// Sitzplan, nur die Zuordnung der Tische kann verändert werden oder das assozierte Event
 server.put('/seatings/:id', async (req, res) => {
   if (!Seatings.exists({ _id: req.params.id })) {
     res.sendStatus(404);
   } else {
     try {
-      const updateSeating = await Seatings.updateOne(
-        { _id: req.params.id },
-        { $set: { seat_mapping: req.body.seat_mapping } } // TODO: Vor dieser Zuordnung muss noch eine Überprüfung stattfinden ob die Anzahl der Keys zu der Anzahl
-        // der Tische passt, sowie jeweils pro Tisch die Anzahl der Sitzplätze zu den Values passt
-      );
-      res.json(updateSeating);
+      const updatedSeatmapping = req.body.seat_mapping;
+
+      if (updatedSeatmapping) {
+        const updateSeating = await Seatings.updateOne(
+          { _id: req.params.id },
+          { $set: { seat_mapping: updatedSeatmapping } } // TODO: Vor dieser Zuordnung muss noch eine Überprüfung stattfinden ob die Anzahl der Keys zu der Anzahl
+          // der Tische passt, sowie jeweils pro Tisch die Anzahl der Sitzplätze zu den Values passt
+        );
+        res.json(updateSeating);
+      }
+
+      const updatedEventid = req.body.associated_event;
+
+      if (updatedEventid) {
+        const updateSeating = await Seatings.updateOne(
+          { _id: req.params.id },
+          { $set: { associated_event: updatedEventid } } // TODO: Vor dieser Zuordnung muss noch eine Überprüfung stattfinden ob die Anzahl der Keys zu der Anzahl
+          // der Tische passt, sowie jeweils pro Tisch die Anzahl der Sitzplätze zu den Values passt
+        );
+        res.json(updateSeating);
+      }
     } catch (err) {
       console.log(err);
     }
