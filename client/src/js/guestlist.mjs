@@ -17,8 +17,8 @@ async function listGuests () {
   // container.setAttribute('class', 'uk-align-left');
 
   const guestIdArray = data.guestlist;
-  guestIdArray.forEach(async element => {
-    const responseGuest = await fetch(apiGuestUrl + element);
+  guestIdArray.forEach(async guestId => {
+    const responseGuest = await fetch(apiGuestUrl + guestId);
     const dataGuest = await responseGuest.json();
     const div = document.createElement('div');
 
@@ -29,20 +29,77 @@ async function listGuests () {
       hasChild = 'Nein';
     }
 
-    div.textContent = 'Name: ' + dataGuest.name + ', Kinder? ' + hasChild + ', Status: ' + dataGuest.status + '   ';
+    div.textContent = 'Name: ' + dataGuest.name + ', Kinder? ' + hasChild + ', ';
     div.setAttribute('style', 'border:2px solid black;');
-    const button = document.createElement('button');
-    button.textContent = 'Löschen';
-    button.setAttribute('id', 'gl_button');
-    button.addEventListener('click', async event => {
-      const responseDelete = await fetch(apiGuestUrl + element, { method: 'DELETE' });
-      const deleteGuest = responseDelete.json();
-      console.log(deleteGuest);
-      window.location.reload();
+
+    const label = document.createElement('label');
+    label.setAttribute('for', 'gl_fuptstatus');
+    label.textContent = 'Status: ';
+    div.appendChild(label);
+    const select = document.createElement('select');
+    select.setAttribute('id', 'gl_fuptstatus');
+    const option1 = document.createElement('option');
+    option1.setAttribute('value', 'unbekannt');
+    option1.textContent = 'unbekannt';
+    const option2 = document.createElement('option');
+    option2.setAttribute('value', 'eingeladen');
+    option2.textContent = 'eingeladen';
+    const option3 = document.createElement('option');
+    option3.setAttribute('value', 'zugesagt');
+    option3.textContent = 'zugesagt';
+    const option4 = document.createElement('option');
+    option4.setAttribute('value', 'abgesagt');
+    option4.textContent = 'abgesagt';
+
+    select.appendChild(option1);
+    select.appendChild(option2);
+    select.appendChild(option3);
+    select.appendChild(option4);
+
+    select.value = dataGuest.status;
+    div.appendChild(select);
+
+    const updateStatusButton = document.createElement('button');
+    updateStatusButton.textContent = 'Status aktualisieren';
+    updateStatusButton.setAttribute('id', 'gl_uptstatbutton');
+
+    div.appendChild(updateStatusButton);
+
+    updateStatusButton.addEventListener('click', async event => {
+      const selectValue = updateStatusButton.previousSibling.value;
+      const newStatus = { status: selectValue };
+      const options = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newStatus)
+      };
+
+      try {
+        const response = await fetch(apiGuestUrl + guestId, options);
+        const updatedGuest = response.json();
+        console.log(updatedGuest);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    const deleteGuestbutton = document.createElement('button');
+    deleteGuestbutton.textContent = 'Gast Löschen';
+    deleteGuestbutton.setAttribute('id', 'gl_delbutton');
+    deleteGuestbutton.addEventListener('click', async event => {
+      try {
+        const responseDelete = await fetch(apiGuestUrl + guestId, { method: 'DELETE' });
+        const deleteGuest = await responseDelete.json();
+        console.log(deleteGuest);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        window.location.reload();
+      }
     });
 
     const br1 = document.createElement('br');
-    div.appendChild(button);
+    div.appendChild(deleteGuestbutton);
     container.appendChild(br1);
     container.appendChild(div);
   });
