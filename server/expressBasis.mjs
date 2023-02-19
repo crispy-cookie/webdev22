@@ -262,19 +262,16 @@ server.put('/seatings/:id', async (req, res) => {
 });
 
 // Sitzplan
-/* delete beim Sitzplan unsinnig Sitzplan wird vollständig entfernt wenn Veranstaltung nicht mehr vorhanden
+
 server.delete('/seatings/:id', async (req, res) => {
-  try{
-
-    const removedSeating = await seatings.deleteOne({_id: req.params.id});
-    await events.updateOne({seating: req.params.id},{ $unset:{seating: req.params.id}}); // Beim entfernen des Sitzplans, soll die Referenz bei der Veranstaltung auch entfernt werden
+  try {
+    const removedSeating = await Seatings.deleteOne({ _id: req.params.id });
     res.json(removedSeating);
-
-  }catch(err){
+  } catch (err) {
     console.log(err);
   }
 });
-*/
+
 /*
 // Planung
 server.get('/table/:id', (req, res) => {

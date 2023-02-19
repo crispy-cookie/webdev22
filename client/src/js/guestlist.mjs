@@ -10,7 +10,7 @@ async function listGuests () {
 
   const eventName = data.name;
   const container = document.getElementById('gl_main');
-  const h1 = document.getElementById('gl_main_h1');
+  const h1 = document.getElementById('gl_header_h1');
   const h1Text = h1.textContent;
   const newh1Text = h1Text + eventName;
   h1.textContent = newh1Text;
