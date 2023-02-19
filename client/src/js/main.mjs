@@ -3,7 +3,7 @@ import UIkit from 'uikit';
 
 import { listEvents } from './listevents.mjs';
 import { listGuests, createGuest } from './guestlist.mjs';
-import { listSeating } from './seatinglist.mjs';
+import { listSeating, guestToTable } from './seatinglist.mjs';
 import { createNewEvent } from './addevent.mjs';
 
 const bodyListEvent = document.getElementById('bodylistevent');
@@ -11,6 +11,7 @@ const bodyGuestList = document.getElementById('bodyguestlist');
 const bodySeatingList = document.getElementById('bodyseatinglist');
 const buttonAddEvent = document.getElementById('ae_fsubmit');
 const buttonAddGuest = document.getElementById('gl_fsubmit');
+const buttonGuesToTable = document.getElementById('sl_selectbutton');
 
 if (bodyListEvent) {
   bodyListEvent.addEventListener('load', listEvents());
@@ -26,6 +27,9 @@ if (buttonAddEvent) {
 }
 if (buttonAddGuest) {
   buttonAddGuest.addEventListener('click', async event => { createGuest(); });
+}
+if (buttonGuesToTable) {
+  buttonGuesToTable.addEventListener('click', async event => { guestToTable(); });
 }
 
 const version = UIkit.version;

@@ -52,22 +52,23 @@ initializeDatabase();
     guestlist: [mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'), mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002')]
   });
 
-  const testEvent2 = new Events({
-    _id: mongoose.Types.ObjectId('6eb6e7e7e9b7f4194e000002'),
-    name: 'test2',
-    timestamp: new Date('1996-12-17T15:24:00'),
-    seating: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001'),
-    guestlist: [mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'), mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002')]
-  });
-
   await Seatings.updateOne(
     { _id: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001') },
     { $set: { associated_event: mongoose.Types.ObjectId('6eb6e7e7e9b7f4194e000001') } }
   );
 
-
   let map = new Map();
   map.set("1",[mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000001'), mongoose.Types.ObjectId('4eb6e7e7e9b7f4194e000002')]);
+  map.set('2', []);
+  map.set('3', []);
+  map.set('4', []);
+  map.set('5', []);
+  map.set('6', []);
+  map.set('7', []);
+  map.set('8', []);
+  map.set('9', []);
+  map.set('10', []);
+
 
  await Seatings.updateOne(
     { _id: mongoose.Types.ObjectId('5eb6e7e7e9b7f4194e000001') },
@@ -75,18 +76,12 @@ initializeDatabase();
   );
 
   testEvent1.save();
-  testEvent2.save();
 });
 
 // function um Testdaten zulöschen
 
 (async function () {
   await Events.deleteMany({ _id: mongoose.Types.ObjectId('6eb6e7e7e9b7f4194e000001') }).then(function () {
-    console.log('Data deleted!');
-  }).catch(function (error) {
-    console.log(error);
-  });
-  await Events.deleteMany({ _id: mongoose.Types.ObjectId('6eb6e7e7e9b7f4194e000002') }).then(function () {
     console.log('Data deleted!');
   }).catch(function (error) {
     console.log(error);

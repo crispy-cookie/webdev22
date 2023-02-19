@@ -26,7 +26,14 @@ async function createNewEvent () {
     body: JSON.stringify(newEvent)
   };
 
-  const newSeating = { count_table: seatingTables, count_seats_per_table: seatingSeats, seat_variant: seatingVariant, seat_mapping: [] };
+  // initialisiere leeres Tischmapping
+  const initialMapping = {};
+  for (let i = 1; i <= seatingTables; i++) {
+    const key = i.toString();
+    initialMapping[key] = [];
+  }
+
+  const newSeating = { count_table: seatingTables, count_seats_per_table: seatingSeats, seat_variant: seatingVariant, seat_mapping: initialMapping };
   const optionsSeatingPost = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -62,7 +69,6 @@ async function createNewEvent () {
 
     const responseUpdatedSeating = await fetch(apiSeatingUrl + newCreatedSeating._id, optionsSeatingPut);
     const updatedSeating = await responseUpdatedSeating.json();
-
     console.log(updatedSeating);
   } catch (err) {
     console.log(err);
