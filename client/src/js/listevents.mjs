@@ -97,11 +97,15 @@ async function resizedListEvents (currentPage) { // ANFANG
 async function createNavBtn (items) {
   const itemsPerPage = 5; // fixed value bei init
   const totalPages = Math.ceil(items.length / itemsPerPage);
-  const paginationButtons = document.createElement('div');
+  const paginationButtons = document.createElement('ul');
+  paginationButtons.setAttribute('class', 'uk-pagination');
 
   // Jede Seite navigierbar machen
   for (let i = 1; i <= totalPages; i++) {
-    const button = document.createElement('button');
+    const li = document.createElement('li')
+    const button = document.createElement('a');
+    button.setAttribute('href', '#');
+    li.appendChild(button);
     button.innerText = i;
     button.addEventListener('click', async () => {
       const paginatedItems = listEvents(i); // durch calcSize ersetzen
