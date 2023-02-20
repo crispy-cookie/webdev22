@@ -1,5 +1,5 @@
-const apiEventUrl = 'http://localhost:8080/events/';
-const apiGuestUrl = 'http://localhost:8080/guests/';
+const apiEventUrl = '/events/';
+const apiGuestUrl = '/guests/';
 
 async function listGuests () {
   const queryString = window.location.search;
@@ -29,7 +29,7 @@ async function listGuests () {
       hasChild = 'Nein';
     }
 
-    div.textContent = 'Name: ' + dataGuest.name + ', Kinder? ' + hasChild + ', ';
+    div.textContent = `Name: ${dataGuest.name}, Kinder? ${hasChild},`;
     div.setAttribute('style', 'border:2px solid black;');
 
     const label = document.createElement('label');

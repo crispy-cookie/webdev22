@@ -1,6 +1,6 @@
-const apiEventUrl = 'http://localhost:8080/events/';
-const apiSeatingUrl = 'http://localhost:8080/seatings/';
-const apiGuestUrl = 'http://localhost:8080/guests/';
+const apiEventUrl = '/events/';
+const apiSeatingUrl = '/seatings/';
+const apiGuestUrl = '/guests/';
 
 async function listSeating () {
   const queryString = window.location.search;
@@ -25,7 +25,7 @@ async function listSeating () {
 
   const divParams = document.getElementById('sl_params');
 
-  divParams.innerText = 'Anzahl der Tische: ' + seatingData.count_table + ', Anzahl der Stühle pro Tisch: ' + seatingData.count_seats_per_table + ', Bestuhlungsvariante: ' + seatingData.seat_variant;
+  divParams.innerText = `Anzahl der Tische: ${seatingData.count_table}, Anzahl der Stühle pro Tisch: ' ${seatingData.count_seats_per_table} ', Bestuhlungsvariante: ${seatingData.seat_variant}`;
   // container.appendChild(divParams);
 
   // Gäste als optionen
@@ -47,7 +47,7 @@ async function listSeating () {
   for (const key of Object.keys(seatMapping)) {
     const option = document.createElement('option');
     option.setAttribute('value', key);
-    option.textContent = 'Tisch ' + key;
+    option.textContent = `'Tisch ${key}`;
 
     selectTable.appendChild(option);
   }
@@ -57,7 +57,7 @@ async function listSeating () {
     // console.log(key + ' ' + values);
     const divTable = document.createElement('div');
     divTable.setAttribute('style', 'white-space: nowrap;');
-    divTable.textContent = 'Tisch ' + key + ' :';
+    divTable.textContent = `Tisch ${key}:`;
     if (values.length !== 0) {
       for (let i = 0; i < values.length; i++) {
         const guestId = values[i].toString();
@@ -67,7 +67,7 @@ async function listSeating () {
 
         const span = document.createElement('span');
         // span.setAttribute('style', 'white-space: nowrap;');
-        span.textContent = ' ' + guestData.name + ' ';
+        span.textContent = ` ${guestData.name} `;
 
         const button = document.createElement('button');
         button.textContent = 'Entfernen';
