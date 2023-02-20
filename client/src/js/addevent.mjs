@@ -1,6 +1,6 @@
 
-const apiEventUrl = 'http://localhost:8080/events/';
-const apiSeatingUrl = 'http://localhost:8080/seatings/';
+const apiEventUrl = '/events/';
+const apiSeatingUrl = '/seatings/';
 
 async function createNewEvent () {
   const eventName = document.getElementById('ae_fname').value;
@@ -15,7 +15,7 @@ async function createNewEvent () {
   console.log(seatingSeats);
   console.log(seatingVariant);
 
-  const newDate = eventDate + ':00.000Z';
+  const newDate = `${eventDate}:00.000Z`;
   console.log(newDate);
   const newEvent = { name: eventName, timestamp: newDate, guestlist: [] };
   const optionsEventPost = {
@@ -73,7 +73,7 @@ async function createNewEvent () {
   } catch (err) {
     console.log(err);
   } finally {
-    window.location.href = 'http://localhost:8080/listevents';
+    window.location.href = '/listevents';
   }
 }
 
