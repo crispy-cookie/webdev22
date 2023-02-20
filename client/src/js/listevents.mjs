@@ -1,5 +1,6 @@
 const apiEventUrl = '/events/';
 const apiSeatingUrl = '/seatings/';
+const elementHeight = 120; // Hoehe eines einzelnen Elements
 
 async function goFetch (apiEventUrl) {
   const response = await fetch(apiEventUrl);
@@ -7,95 +8,34 @@ async function goFetch (apiEventUrl) {
   return data;
 }
 
-/*
-async function calcSize (items, container) {
-  const windowHeight = window.innerHeight;
-  const containerHeight = Math.max(container.offsetHeight, 1);
-  const entryHeight = container.firstElementChild.offsetHeight ? container.firstElementChild.offsetHeight : 10;
-  const entries = data.length;
-
-  console.log('windowHeight', windowHeight);
-  console.log('containerHeight', containerHeight);
-  console.log('entryHeight', entryHeight);
-
-  // entriesOnPage = Math.max(Math.floor(windowHeight / entryHeight)); // gibt entriesPerPage zurueck
-  return  Math.max(Math.floor(windowHeight / entryHeight)); // gibt entriesPerPage zurueck
-}
-
-async function calcSizeBool(argument) {
-  const windowHeight = window.innerHeight;
-  const containerHeight = Math.max(container.offsetHeight, 1);
-  
-  if (containerHeight + 10 > windowHeight) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-while (calcSizeBool) {
-  addItems zu render
-}
-*/
-
 async function listEvents (page) {
   
   const paginationContainer = document.getElementById('bodylistevent');
 
   const items = await goFetch(apiEventUrl);
-  console.log(items);
-  const itemsPerPage = 5;
+  // console.log(items);
+  const itemsPerPage = await calcAnzItems();
 
   const start = (page - 1) * itemsPerPage;
-  console.log('start', start);
   const ende = start + itemsPerPage;
-  console.log('ende', ende);
   const paginatedItems = items.slice(start, ende);
 
-  console.log('paginatedItems', paginatedItems)
+  // console.log('paginatedItems', paginatedItems)
 
   const paginationButtons = await createNavBtn(items);
-  console.log('pagnationButton angelegt', paginationButtons);
+  // console.log('pagnationButton angelegt', paginationButtons);
   paginationContainer.appendChild(paginationButtons);
-  console.log('paginationContainer Inhalt', paginationContainer);
+  // console.log('paginationContainer Inhalt', paginationContainer);
 
-  /*const test = document.createElement('p');
-  test.textContent = 'blabla';
-  paginationContainer.appendChild(test);*/
-  
   await renderItems(paginatedItems);
 }
 
-/*async function listEvents () { // ANFANG
-  // Initialisierung der Pagination
-
-  const paginationContainer = document.getElementById('le_main_h1');
-
-  const items = await goFetch(apiEventUrl);
-  const paginatedItems = items.slice(0, 5);
-
-  const paginationButtons = await createNavBtn(items);
-  paginationContainer.appendChild(paginationButtons);
-  
-  await renderItems(paginatedItems);
+async function calcAnzItems() {
+  return Math.floor(window.innerHeight / elementHeight);
 }
-
-async function resizedListEvents (currentPage) { // ANFANG
-  const paginationContainer = document.getElementById('le_main_h1');
-  const paginationButtons = createNavBtn(items);
-  paginationContainer.appendChild(paginationButtons);
-
-  const itemsPerPage = await calcSize()
-  const start = (currentPage -1) * itemsPerPage;
-  const items = await goFetch(apiEventUrl);
-  
-  const paginatedItems = items.slice((currentPage -1) * itemsPerPage, start + itemsPerPage);
-  await renderItems(paginatedItems);
-}
-*/
 
 async function createNavBtn (items) {
-  const itemsPerPage = 5; // fixed value bei init
+  const itemsPerPage = await calcAnzItems();
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const paginationButtons = document.createElement('ul');
   paginationButtons.setAttribute('class', 'uk-pagination');
@@ -113,7 +53,6 @@ async function createNavBtn (items) {
     });
     paginationButtons.appendChild(button);
   }
-  console.log('here is nav');
   return paginationButtons;
 }
 
@@ -167,6 +106,5 @@ async function renderItems (items) {
     itemsContainer.appendChild(div);
     });
 }
-
 
 export { listEvents };
