@@ -15,14 +15,14 @@ async function listEvents () {
     const para2 = document.createElement('p');
     para2.setAttribute('class', 'uk-text-small');
     const seatingLink = document.createElement('a');
-    seatingLink.setAttribute('href', 'http://localhost:8080/seatinglist?event=' + element._id); // Platzhalter-Link
+    seatingLink.setAttribute('href', 'http://localhost:8080/seatinglist?event=' + element._id);
     seatingLink.textContent = 'Sitzplan: ' + element.seating;
     para2.appendChild(seatingLink);
 
     const para3 = document.createElement('p');
     para3.setAttribute('class', 'uk-text-small');
     const guestlistLink = document.createElement('a');
-    guestlistLink.setAttribute('href', 'http://localhost:8080/guestlist?event=' + element._id); // Platzhalter-Link
+    guestlistLink.setAttribute('href', 'http://localhost:8080/guestlist?event=' + element._id);
     guestlistLink.textContent = 'Gästeliste: ';
     para3.appendChild(guestlistLink);
 
