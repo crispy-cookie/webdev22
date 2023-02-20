@@ -14,7 +14,8 @@ const buttonAddGuest = document.getElementById('gl_fsubmit');
 const buttonGuesToTable = document.getElementById('sl_selectbutton');
 
 if (bodyListEvent) {
-  bodyListEvent.addEventListener('load', listEvents());
+  bodyListEvent.addEventListener('load', listEvents(1));
+  // bodyListEvent.addEventListener('resize', listEvents(1));
 }
 if (bodyGuestList) {
   bodyGuestList.addEventListener('load', listGuests());
