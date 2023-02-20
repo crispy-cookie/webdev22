@@ -1,5 +1,5 @@
-const apiEventUrl = 'http://localhost:8080/events/';
-const apiSeatingUrl = 'http://localhost:8080/seatings/';
+const apiEventUrl = '/events/';
+const apiSeatingUrl = '/seatings/';
 
 async function listEvents () {
   const response = await fetch(apiEventUrl);
@@ -10,19 +10,19 @@ async function listEvents () {
     const div = document.createElement('div');
     const para1 = document.createElement('p');
     para1.setAttribute('class', 'uk-text-small');
-    para1.innerText = 'Name der Veranstaltung: ' + element.name + ' Datum: ' + new Date(element.timestamp).toLocaleString();
+    para1.innerText = `Name der Veranstaltung ${element.name} Datum: ${new Date(element.timestamp).toLocaleString()}`;
 
     const para2 = document.createElement('p');
     para2.setAttribute('class', 'uk-text-small');
     const seatingLink = document.createElement('a');
-    seatingLink.setAttribute('href', 'http://localhost:8080/seatinglist?event=' + element._id); // Platzhalter-Link
-    seatingLink.textContent = 'Sitzplan: ' + element.seating;
+    seatingLink.setAttribute('href', `/seatinglist?event=${element._id}`); // Platzhalter-Link
+    seatingLink.textContent = `Sitzplan ${element.seating}`;
     para2.appendChild(seatingLink);
 
     const para3 = document.createElement('p');
     para3.setAttribute('class', 'uk-text-small');
     const guestlistLink = document.createElement('a');
-    guestlistLink.setAttribute('href', 'http://localhost:8080/guestlist?event=' + element._id); // Platzhalter-Link
+    guestlistLink.setAttribute('href', `/guestlist?event=${element._id}`); // Platzhalter-Link
     guestlistLink.textContent = 'Gästeliste: ';
     para3.appendChild(guestlistLink);
 
