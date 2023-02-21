@@ -47,7 +47,7 @@ async function listSeating () {
   for (const key of Object.keys(seatMapping)) {
     const option = document.createElement('option');
     option.setAttribute('value', key);
-    option.textContent = `'Tisch ${key}`;
+    option.textContent = `Tisch ${key}`;
 
     selectTable.appendChild(option);
   }
