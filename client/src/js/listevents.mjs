@@ -9,7 +9,6 @@ async function goFetch (apiEventUrl) {
 }
 
 async function listEvents (page) {
-  
   const paginationContainer = document.getElementById('bodylistevent');
 
   const items = await goFetch(apiEventUrl);
@@ -23,10 +22,12 @@ async function listEvents (page) {
   // console.log('paginatedItems', paginatedItems)
 
   const paginationButtons = await createNavBtn(items);
-  // console.log('pagnationButton angelegt', paginationButtons);
+  // pagination zahlen aktualisieren
+  if (paginationContainer.lastChild) {
+    paginationContainer.removeChild(paginationContainer.lastElementChild)
+  }
   paginationContainer.appendChild(paginationButtons);
-  // console.log('paginationContainer Inhalt', paginationContainer);
-
+  
   await renderItems(paginatedItems);
 }
 
