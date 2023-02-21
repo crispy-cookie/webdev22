@@ -23,13 +23,13 @@ async function listEvents (page) {
 
   // console.log('paginatedItems', paginatedItems)
 
-  if (temp === 0) {
-    const paginationButtons = await createNavBtn(items);
-    // console.log('pagnationButton angelegt', paginationButtons);
-    paginationContainer.appendChild(paginationButtons);
-    // console.log('paginationContainer Inhalt', paginationContainer);
-    temp++;
+  const paginationButtons = await createNavBtn(items);
+  // pagination zahlen aktualisieren
+  if (paginationContainer.lastChild) {
+    paginationContainer.removeChild(paginationContainer.lastElementChild)
   }
+  paginationContainer.appendChild(paginationButtons);
+  
   await renderItems(paginatedItems);
 }
 
