@@ -1,6 +1,6 @@
 const apiEventUrl = '/events/';
 const apiSeatingUrl = '/seatings/';
-const elementHeight = 120; // Hoehe eines einzelnen Elements
+const elementHeight = 154; // Hoehe eines einzelnen Elements
 
 async function goFetch (apiEventUrl) {
   const response = await fetch(apiEventUrl);
@@ -16,7 +16,7 @@ async function listEvents (page) {
   const itemsPerPage = await calcAnzItems();
 
   const start = (page - 1) * itemsPerPage;
-  const ende = start + itemsPerPage;
+  const ende = start + itemsPerPage - 1;
   const paginatedItems = items.slice(start, ende);
 
   // console.log('paginatedItems', paginatedItems)
