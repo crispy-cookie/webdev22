@@ -76,7 +76,10 @@ async function renderItems (items) {
 
   console.log('myItems:', items);
   let count = 0;
-  items.forEach(element => {
+
+  const arr = Array.from(items);
+
+  arr.forEach(async element => {
     // while (await calcSizeBool) {
     console.info('element', element);
     const div = document.createElement('div');
@@ -119,7 +122,7 @@ async function renderItems (items) {
     div.appendChild(para3);
     div.appendChild(button);
     itemsContainer.appendChild(div);
-    if (count < items.length - 1) {
+    if (count < arr.length - 1) {
       itemsContainer.appendChild(document.createElement('br'));
     }
     count++;
