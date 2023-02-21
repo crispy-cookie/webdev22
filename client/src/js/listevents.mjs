@@ -1,6 +1,6 @@
 const apiEventUrl = '/events/';
 const apiSeatingUrl = '/seatings/';
-const elementHeight = 154; // Hoehe eines einzelnen Elements
+const elementHeight = 179; // Hoehe eines einzelnen Elements
 
 async function goFetch (apiEventUrl) {
   const response = await fetch(apiEventUrl);
@@ -16,13 +16,14 @@ async function listEvents (page) {
   const itemsPerPage = await calcAnzItems();
 
   const start = (page - 1) * itemsPerPage;
-  const ende = start + itemsPerPage - 1;
+  const ende = start + itemsPerPage;
+
   const paginatedItems = items.slice(start, ende);
 
   // console.log('paginatedItems', paginatedItems)
 
-  // pagination zahlen aktualisieren
   const paginationButtons = await createNavBtn(items);
+  // pagination zahlen aktualisieren
   if (paginationContainer.lastChild) {
     paginationContainer.removeChild(paginationContainer.lastElementChild);
   }
@@ -32,7 +33,12 @@ async function listEvents (page) {
 }
 
 async function calcAnzItems () {
-  return Math.floor(window.innerHeight / elementHeight) - 1;
+  const anz = Math.floor(window.innerHeight / elementHeight);
+  if (anz < 1) {
+    return 1;
+  } else {
+    return anz;
+  }
 }
 
 async function createNavBtn (items) {
@@ -47,10 +53,10 @@ async function createNavBtn (items) {
     const button = document.createElement('a');
     button.setAttribute('href', '#');
     li.appendChild(button);
-    button.innerText = i;
+    button.innerText = `< ${i} > `;
     button.addEventListener('click', async () => {
       const paginatedItems = listEvents(i); // durch calcSize ersetzen
-      renderItems(paginatedItems);
+      await renderItems(paginatedItems);
     });
     paginationButtons.appendChild(button);
   }
@@ -61,24 +67,32 @@ async function renderItems (items) {
   const itemsContainer = document.getElementById('le_main_h1'); // >> html
   itemsContainer.innerHTML = ''; // leeren bei Aktualisierung
 
+  const span = document.createElement('span');
+  span.setAttribute('class', 'uk-text-background uk-text-large');
+  span.textContent = 'Liste der Veranstaltungen';
+
+  itemsContainer.appendChild(span);
+  itemsContainer.appendChild(document.createElement('br'));
+
   console.log('myItems:', items);
+  let count = 0;
   items.forEach(element => {
     // while (await calcSizeBool) {
     console.info('element', element);
     const div = document.createElement('div');
     const para1 = document.createElement('p');
-    para1.setAttribute('class', 'uk-text-small');
+    para1.setAttribute('class', 'uk-text-small uk-text-left');
     para1.innerText = `Name der Veranstaltung: ${element.name} Datum: ${new Date(element.timestamp).toLocaleString()}`;
 
     const para2 = document.createElement('p');
-    para2.setAttribute('class', 'uk-text-small');
+    para2.setAttribute('class', 'uk-text-small uk-text-left');
     const seatingLink = document.createElement('a');
     seatingLink.setAttribute('href', `/seatinglist?event=${element._id}`); // Platzhalter-Link
     seatingLink.textContent = 'Sitzplan: ' + element.seating;
     para2.appendChild(seatingLink);
 
     const para3 = document.createElement('p');
-    para3.setAttribute('class', 'uk-text-small');
+    para3.setAttribute('class', 'uk-text-small uk-text-left');
     const guestlistLink = document.createElement('a');
     guestlistLink.setAttribute('href', `/guestlist?event=${element._id}`); // Platzhalter-Link
     guestlistLink.textContent = 'Gästeliste: ';
@@ -87,7 +101,7 @@ async function renderItems (items) {
     const button = document.createElement('button');
     button.textContent = 'Löschen';
     button.setAttribute('id', 'le_button');
-    button.setAttribute('class', 'uk-align-center');
+    button.setAttribute('class', 'uk-text-left');
     button.addEventListener('click', async event => {
       const responseDeleteEvent = await fetch(apiEventUrl + element._id, { method: 'DELETE' });
       const deleteEvent = await responseDeleteEvent.json();
@@ -105,6 +119,10 @@ async function renderItems (items) {
     div.appendChild(para3);
     div.appendChild(button);
     itemsContainer.appendChild(div);
+    if (count < items.length - 1) {
+      itemsContainer.appendChild(document.createElement('br'));
+    }
+    count++;
   });
 }
 

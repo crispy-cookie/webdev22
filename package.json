@@ -14,7 +14,7 @@
     "clean:node": "rm -rf node_modules",
     "lint": "npm run check:semi && npm run check:less",
     "debug": "npm run gen:dist && npm run lint && npm run combine:js && npm run compile:less",
-    "build": "npm run debug && npm run min:less",
+    "build": "npm run debug && npm run min:less && npm run min:js",
     "#weitere_zusammengesetzte_Befehle": "echo comment ; exit",
     "min": "echo run \"debug\" first! && sleep 3s && npm run min:js && npm run min:less",
     "#atomare_Befehle": "echo comment ; exit",

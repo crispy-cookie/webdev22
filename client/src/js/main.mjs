@@ -15,7 +15,7 @@ const buttonGuesToTable = document.getElementById('sl_selectbutton');
 
 if (bodyListEvent) {
   bodyListEvent.addEventListener('load', listEvents(1));
-  window.addEventListener('resize', async () => listEvents(1));
+  window.addEventListener('resize', () => listEvents(1));
 }
 if (bodyGuestList) {
   bodyGuestList.addEventListener('load', listGuests());
