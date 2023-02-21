@@ -8,8 +8,6 @@ async function goFetch (apiEventUrl) {
   return data;
 }
 
-let temp = 0;
-
 async function listEvents (page) {
   const paginationContainer = document.getElementById('bodylistevent');
 
@@ -23,18 +21,18 @@ async function listEvents (page) {
 
   // console.log('paginatedItems', paginatedItems)
 
-  const paginationButtons = await createNavBtn(items);
   // pagination zahlen aktualisieren
+  const paginationButtons = await createNavBtn(items);
   if (paginationContainer.lastChild) {
-    paginationContainer.removeChild(paginationContainer.lastElementChild)
+    paginationContainer.removeChild(paginationContainer.lastElementChild);
   }
   paginationContainer.appendChild(paginationButtons);
-  
+
   await renderItems(paginatedItems);
 }
 
 async function calcAnzItems () {
-  return Math.floor(window.innerHeight / elementHeight) - 2;
+  return Math.floor(window.innerHeight / elementHeight) - 1;
 }
 
 async function createNavBtn (items) {
@@ -52,7 +50,7 @@ async function createNavBtn (items) {
     button.innerText = i;
     button.addEventListener('click', async () => {
       const paginatedItems = listEvents(i); // durch calcSize ersetzen
-      await renderItems(paginatedItems);
+      renderItems(paginatedItems);
     });
     paginationButtons.appendChild(button);
   }
