@@ -22,7 +22,7 @@
     "compile:less": "lessc ./client/src/styles/style.less ./client/dist/styles/style.css",
     "min:less": "lessc --clean-css ./client/src/styles/style.less ./client/dist/styles/style.css",
     "min:js": "terser ./client/dist/js/main.mjs --compress --mangle -o ./client/dist/js/main.mjs",
-    "check:semi": "semistandard --fix -verbose ./index.mjs ./client/src/js/*.mjs ./lib/**/*.mjs ./server/**/*.mjs | snazzy",
+    "check:semi": "semistandard --fix -verbose ./index.mjs ./client/src/js/*.mjs ./server/**/*.mjs | snazzy",
     "combine:js": "esbuild ./client/src/js/main.mjs --log-level=warning --bundle --platform=node --outfile=./client/dist/js/main.mjs"
   },
   "dependencies": {
