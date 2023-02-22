@@ -1,6 +1,6 @@
 const apiEventUrl = '/events/';
 const apiSeatingUrl = '/seatings/';
-const elementHeight = 179; // Hoehe eines einzelnen Elements
+const elementHeight = 188; // Hoehe eines einzelnen Elements
 
 async function goFetch (apiEventUrl) {
   const response = await fetch(apiEventUrl);
@@ -45,7 +45,7 @@ async function createNavBtn (items) {
   const itemsPerPage = await calcAnzItems();
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const paginationButtons = document.createElement('ul');
-  paginationButtons.setAttribute('class', 'uk-pagination');
+  paginationButtons.setAttribute('class', 'uk-pagination uk-text-bold');
 
   // Jede Seite navigierbar machen
   for (let i = 1; i <= totalPages; i++) {
@@ -83,23 +83,31 @@ async function renderItems (items) {
     // while (await calcSizeBool) {
     console.info('element', element);
     const div = document.createElement('div');
+    div.setAttribute('style', 'border:1px solid black;');
     const para1 = document.createElement('p');
-    para1.setAttribute('class', 'uk-text-small uk-text-left');
-    para1.innerText = `Name der Veranstaltung: ${element.name} Datum: ${new Date(element.timestamp).toLocaleString()}`;
+    para1.setAttribute('class', 'uk-text-small uk-text-left uk-text-bold uk-text-primary');
+    para1.innerText = `Name der Veranstaltung: ${element.name}`;
+
+    const paraDate = document.createElement('p');
+    paraDate.setAttribute('class', 'uk-text-small uk-text-left uk-text-primary');
+    paraDate.innerText = `Datum: ${new Date(element.timestamp).toLocaleString()}`;
 
     const para2 = document.createElement('p');
     para2.setAttribute('class', 'uk-text-small uk-text-left');
+    para2.textContent = 'Sitzplan: ';
     const seatingLink = document.createElement('a');
-    seatingLink.setAttribute('href', `/seatinglist?event=${element._id}`); // Platzhalter-Link
-    seatingLink.textContent = 'Sitzplan: ' + element.seating;
+    seatingLink.setAttribute('href', `/seatinglist?event=${element._id}`);
+    seatingLink.textContent = '>Klick mich fürs bearbeiten<';
     para2.appendChild(seatingLink);
 
-    const para3 = document.createElement('p');
-    para3.setAttribute('class', 'uk-text-small uk-text-left');
+    const para3 = document.createElement('span');
+    para3.textContent = ' || Gästeliste: ';
     const guestlistLink = document.createElement('a');
-    guestlistLink.setAttribute('href', `/guestlist?event=${element._id}`); // Platzhalter-Link
-    guestlistLink.textContent = 'Gästeliste: ';
+    guestlistLink.setAttribute('href', `/guestlist?event=${element._id}`);
+    guestlistLink.textContent = '>Klick mich fürs bearbeiten<';
     para3.appendChild(guestlistLink);
+    para2.appendChild(para3);
+    // para2.appendChild(para3);
 
     const button = document.createElement('button');
     button.textContent = 'Löschen';
@@ -118,8 +126,9 @@ async function renderItems (items) {
     });
     // }
     div.appendChild(para1);
+    div.appendChild(paraDate);
     div.appendChild(para2);
-    div.appendChild(para3);
+    // div.appendChild(para3);
     div.appendChild(button);
     itemsContainer.appendChild(div);
     if (count < arr.length - 1) {
