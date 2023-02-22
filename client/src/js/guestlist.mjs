@@ -1,4 +1,4 @@
-import { apiEventUrl,apiGuestUrl } from "./apiurls.mjs";
+import { apiEventUrl, apiGuestUrl } from './apiurls.mjs';
 
 async function listGuests () {
   const queryString = window.location.search;

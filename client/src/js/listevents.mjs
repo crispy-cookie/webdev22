@@ -1,4 +1,4 @@
-import { apiEventUrl,apiSeatingUrl } from "./apiurls.mjs";
+import { apiEventUrl, apiSeatingUrl } from './apiurls.mjs';
 const elementHeight = 210; // Hoehe eines einzelnen Elements
 
 async function goFetch (apiEventUrl) {

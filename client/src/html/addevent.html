@@ -21,10 +21,11 @@
 			</div>
 		</nav>
 	</header>
-	<main>
+	<main class="uk-text-center">
 		<h1 class="uk-text-primary uk-text-bold">Webapp Veranstaltungstool</h1>
 		<h2 class="uk-text-bold">Neue Veranstaltung anlegen</h2>
-            <label for="ae_fname">Name der Veranstaltung: </label>
+		<div class="uk-background-muted uk-text-large" style="margin-left:auto; margin-right: auto; width: 50%; border: 2px solid rgb(0, 60, 255); border-width: 5pt;">
+			<label for="ae_fname">Name der Veranstaltung: </label>
 			<input type="text" id="ae_fname" value="" /><br><br>
             <label for="ae_fdate">Wann soll es stattfinden? </label>
 			<input type="datetime-local" id="ae_fdate" value=""/><br><br>
@@ -38,6 +39,7 @@
 				<option value="zweiseitig">zweiseitig</option>
 			</select><br><br>
 			<button id="ae_fsubmit">Erstellen</button>
+		</div>
 	</main>
 	<footer></footer>
   </body>

@@ -1,4 +1,4 @@
-import { apiEventUrl,apiSeatingUrl } from "./apiurls.mjs";
+import { apiEventUrl, apiSeatingUrl } from './apiurls.mjs';
 
 async function createNewEvent () {
   const eventName = document.getElementById('ae_fname').value;
