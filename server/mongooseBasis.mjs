@@ -1,39 +1,5 @@
 import mongoose from 'mongoose';
 
-// Schritt 1 Verbinde mit Datenbank
-// mongoose.connect(mongoUrl)
-
-// Model > Klasse
-
-/*
-mongoose => {
-  const Vorlage = mongoose.model('vorlage'),
-  mongoose.Schema({
-      title: String,
-      desc: String
-  });
-return Vorlage;
-};
-*/
-
-/* Attribute:
-Eine Veranstaltung verfügt mindestens über die Eigenschaften:
-*  Name
-*  Datum und Uhrzeit des Veranstaltungsbeginns
-*  Gästeliste
-*  Sitzplan
-
-Die Gästeliste ist eine Menge von Gästen. Jeder Gast verfügt mindestens über die Eigenschaften
-*  Name
-*  Kind: ja, nein
-*  Einladungsstatus: unbekannt, eingeladen, zugesagt, abgesagt
-
-Die Sitzplatzplanung ist stark vereinfacht. Je Veranstaltung muss festgelegt werden
-*  Anzahl der rechteckigen Tische
-*  Anzahl der Sitzplätze pro Tisch
-*  Einseitige oder zweiseitige Bestuhlung aller Tische
-*/
-
 async function initializeDatabase () {
   try {
     await mongoose.connect('mongodb://localhost:27017/eventhelper');
@@ -66,8 +32,6 @@ const seatingSchema = new mongoose.Schema({
   count_seats_per_table: Number,
   seat_variant: { type: String, enum: ['einseitig', 'zweiseitig'] },
   seat_mapping: { type: Map, of: { type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Guests' }] } } // Überlegung hier Keys sind die Tische und Values die IDs der Gäste an den Tischen
-  // Überprüfung das Values nicht die Anzahl der Plätze pro Tische überschreiten und das Keys nicht mehr als Anzahl der werden
-  // nicht ganz zufrieden mit der Lösung da keys beliebige Namen haben können, evtl. genauer nachschauen wie Mongoose Maps funktionieren
 
 });
 const Seatings = mongoose.model('Seatings', seatingSchema);

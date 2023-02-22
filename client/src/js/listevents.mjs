@@ -1,5 +1,4 @@
-const apiEventUrl = '/events/';
-const apiSeatingUrl = '/seatings/';
+import { apiEventUrl,apiSeatingUrl } from "./apiurls.mjs";
 const elementHeight = 210; // Hoehe eines einzelnen Elements
 
 async function goFetch (apiEventUrl) {
@@ -51,7 +50,7 @@ async function createNavBtn (items) {
   for (let i = 1; i <= totalPages; i++) {
     const li = document.createElement('li');
     const button = document.createElement('a');
-    button.setAttribute('href', '#');
+    button.setAttribute('href', `#${i}`);
     li.appendChild(button);
     button.innerText = `< ${i} > `;
     button.addEventListener('click', async () => {

@@ -1,6 +1,4 @@
-const apiEventUrl = '/events/';
-const apiSeatingUrl = '/seatings/';
-const apiGuestUrl = '/guests/';
+import { apiEventUrl,apiSeatingUrl, apiGuestUrl } from "./apiurls.mjs";
 
 async function listSeating () {
   const queryString = window.location.search;
@@ -124,29 +122,46 @@ async function guestToTable () {
   const seatingData = await responseSeating.json();
 
   const seatMapping = seatingData.seat_mapping;
+  const guestPerTable = seatingData.count_seats_per_table;
 
-  for (const key of Object.keys(seatMapping)) {
+  for (const key of Object.keys(seatMapping, guestId)) {
     if (key === tableNum) {
-      seatMapping[key].push(guestId);
+      if (seatMapping[key].includes(guestId)) {
+        window.alert('Gast sitzt schon an diesem Tisch!!');
+      } else if (guestAlreadyMapped(seatMapping, guestId)) {
+        window.alert('Gast ist schon einem Platz zugeordnet!');
+      } else if (seatMapping[key].length >= guestPerTable) {
+        window.alert('Der Tisch ist schon voll!!');
+      } else {
+        seatMapping[key].push(guestId);
+        const newSeatMapping = { seat_mapping: seatMapping };
+        const options = {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newSeatMapping)
+        };
 
-      const newSeatMapping = { seat_mapping: seatMapping };
-      const options = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newSeatMapping)
-      };
-
-      try {
-        const responseUpdatedSeating = await fetch(apiSeatingUrl + seatingId, options);
-        const updatedSeating = await responseUpdatedSeating.json();
-        console.log(updatedSeating);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        window.location.reload();
+        try {
+          const responseUpdatedSeating = await fetch(apiSeatingUrl + seatingId, options);
+          const updatedSeating = await responseUpdatedSeating.json();
+          console.log(updatedSeating);
+        } catch (err) {
+          console.log(err);
+        } finally {
+          window.location.reload();
+        }
       }
     }
   }
+}
+
+function guestAlreadyMapped (seatMapping, guestId) {
+  for (const key of Object.keys(seatMapping)) {
+    if (seatMapping[key].includes(guestId)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export { listSeating, guestToTable };
