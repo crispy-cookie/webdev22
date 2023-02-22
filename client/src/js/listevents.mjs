@@ -1,6 +1,6 @@
 const apiEventUrl = '/events/';
 const apiSeatingUrl = '/seatings/';
-const elementHeight = 188; // Hoehe eines einzelnen Elements
+const elementHeight = 210; // Hoehe eines einzelnen Elements
 
 async function goFetch (apiEventUrl) {
   const response = await fetch(apiEventUrl);
