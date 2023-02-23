@@ -1,5 +1,6 @@
 import { apiEventUrl, apiSeatingUrl } from './apiurls.mjs';
-const elementHeight = 210; // Hoehe eines einzelnen Elements
+const elementHeight = 230; // Hoehe eines einzelnen Elements
+const navBarHeight = 80+89; // Höhe der Navigationsleisten
 
 async function goFetch (apiEventUrl) {
   const response = await fetch(apiEventUrl);
@@ -32,7 +33,7 @@ async function listEvents (page) {
 }
 
 async function calcAnzItems () {
-  const anz = Math.floor(window.innerHeight / elementHeight);
+  const anz = Math.floor((window.innerHeight - navBarHeight) / elementHeight);
   if (anz < 1) {
     return 1;
   } else {
@@ -79,7 +80,6 @@ async function renderItems (items) {
   const arr = Array.from(items);
 
   arr.forEach(async element => {
-    // while (await calcSizeBool) {
     console.info('element', element);
     const div = document.createElement('div');
     div.setAttribute('style', 'margin-left: 2%; margin-right: 2%; border:1px solid black;');
@@ -123,7 +123,6 @@ async function renderItems (items) {
 
       window.location.reload();
     });
-    // }
     div.appendChild(para1);
     div.appendChild(paraDate);
     div.appendChild(para2);
