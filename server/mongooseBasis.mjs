@@ -4,7 +4,7 @@ async function initializeDatabase () {
   try {
     await mongoose.connect('mongodb://localhost:27017/eventhelper');
     const test = await mongoose.Connection;
-    console.log(test.name + ' : Erfolgreich');
+    console.log(`${test.name}: Erfolgreich`);
   } catch (error) {
     console.error(error);
     process.exit(-1);

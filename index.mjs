@@ -20,15 +20,15 @@ app.get('/hello', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(staticPath + '/index.html');
+  res.sendFile(`${staticPath}/index.html`);
 });
 
 app.get('/index', (req, res) => {
-  res.sendFile(staticPath + '/index.html');
+  res.sendFile(`${staticPath}/index.html`);
 });
 
 app.get('/listevents', (req, res) => {
-  res.sendFile(staticPath + '/html/listevents.html');
+  res.sendFile(`${staticPath}/html/listevents.html`);
 });
 
 app.get('/guestlist', async (req,res)=>{
@@ -41,7 +41,7 @@ app.get('/guestlist', async (req,res)=>{
     if (!(await Events.exists({ _id: objId }))) {
       res.sendStatus(404);
     } else {
-      res.sendFile(staticPath + '/html/guestlist.html');
+      res.sendFile(`${staticPath}/html/guestlist.html`);
     }
   }
   catch (err) {
@@ -59,7 +59,7 @@ app.get('/seatinglist', async (req,res)=>{
     if (!(await Events.exists({ _id: objId }))) {
       res.sendStatus(406);
     } else {
-      res.sendFile(staticPath + '/html/seatinglist.html');
+      res.sendFile(`${staticPath}/html/seatinglist.html`);
     }
   }
   catch (err) {
@@ -68,7 +68,7 @@ app.get('/seatinglist', async (req,res)=>{
 });
 
 app.get('/addevent', (req,res)=>{
-  res.sendFile(staticPath+'/html/addevent.html');
+  res.sendFile(`${staticPath}/html/addevent.html`);
 });
 
 app.listen(port, (err) => {
