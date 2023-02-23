@@ -29,7 +29,8 @@ async function listGuests () {
     }
 
     div.textContent = `Name: ${dataGuest.name}, Kinder? ${hasChild},`;
-    div.setAttribute('style', 'border:2px solid black;');
+    // div.setAttribute('style', 'border:2px solid black;');
+    div.setAttribute('class', 'centering-box');
 
     const label = document.createElement('label');
     label.setAttribute('for', 'gl_fuptstatus');

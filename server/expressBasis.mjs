@@ -8,25 +8,6 @@ console.log(BASE_URI);
 
 const server = express();
 server.use(bodyParser.json());
-/* Beispiel fuer unten; TODO: muss ich noch anpassen
-server.get('/veranstaltungen/list/:id', (request, response) => {
-  const id = request.params.id;
-  const dbList = getDatabase(id);
-  response.send('bla');
-});
-
-/*
-server.post(`${BASE_URI}/veranstaltungen/list/${id}`, (request, response) => {
-  const newVeranstaltung = request.body;
-  if (!(newVeranstaltung)) {
-    response.sendStatus(404); // Fehlerbehandlung zu body und zu fehlenden Parametern fuer Datenbank-document
-  } else { // lege neues DB-Document an
-    writeToDatabase(newVeranstaltung, callback);
-    // AUS BEISPIEL: const id = Customers.create(newCustomer.name, newCustomer.email, newCustomer.address.country, newCustomer.address.postalcode, newCustomer.address.city, newCustomer.address.line1, newCustomer.address.line2, newCustomer.address.line3);
-    response.location(`${BASE_URI}/customers/${id}`).status(201).json(createCustomerBody(id));
-  }
-});
-*/
 
 /* ############
 ** #
@@ -271,22 +252,5 @@ server.delete('/seatings/:id', async (req, res) => {
     console.log(err);
   }
 });
-
-/*
-// Planung
-server.get('/table/:id', (req, res) => {
-  res.send('bla');
-});
-
- // Planung soll nicht unterstuetzt werden
-server.put('/table/:id', (req, resp) => {
-  res.send('bla');
-});
-
-// Planung
-server.delete('/table/:id', (req, res) => {
-  res.send('bla');
-});
-*/
 
 export { server };

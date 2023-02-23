@@ -82,7 +82,7 @@ async function renderItems (items) {
     // while (await calcSizeBool) {
     console.info('element', element);
     const div = document.createElement('div');
-    div.setAttribute('style', 'border:1px solid black;');
+    div.setAttribute('style', 'margin-left: 2%; margin-right: 2%; border:1px solid black;');
     const para1 = document.createElement('p');
     para1.setAttribute('class', 'uk-text-small uk-text-left uk-text-bold uk-text-primary');
     para1.innerText = `Name der Veranstaltung: ${element.name}`;
